@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "pointselectorwidget.h"
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -17,5 +18,6 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    PointSelectorWidget *pointSelectorWidget;
 };
 #endif // MAINWINDOW_H

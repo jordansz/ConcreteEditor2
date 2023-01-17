@@ -10,10 +10,14 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    pointselectorwidget.cpp \
+    pointshandler.cpp
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    pointselectorwidget.h \
+    pointshandler.h
 
 FORMS += \
     mainwindow.ui
@@ -22,3 +26,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    Resources.qrc
