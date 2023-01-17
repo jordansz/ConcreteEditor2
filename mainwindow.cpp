@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
     , pointSelectorWidget(new PointSelectorWidget(this))
 {
     ui->setupUi(this);
+    pointSelectorWidget->setFocusPolicy(Qt::StrongFocus);       // needed for backspace cropping selection
     ui->stackedWidget->addWidget(pointSelectorWidget);
     ui->stackedWidget->setCurrentIndex(2);
 }

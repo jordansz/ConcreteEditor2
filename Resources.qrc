@@ -2,4 +2,8 @@
     <qresource prefix="/Images">
         <file>homeButton.png</file>
     </qresource>
+    <qresource prefix="/Shaders">
+        <file>default.frag</file>
+        <file>default.vert</file>
+    </qresource>
 </RCC>

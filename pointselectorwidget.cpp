@@ -47,7 +47,7 @@ void PointSelectorWidget::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     if(!editImage){
         qDebug() << "not cropping";
-        painter.setPen(Qt::darkGray);
+        painter.setPen(Qt::white);
         painter.drawImage(xOffset, yOffset, image);
 
 
