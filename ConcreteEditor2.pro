@@ -12,15 +12,18 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     pointselectorwidget.cpp \
-    pointshandler.cpp
+    pointshandler.cpp \
+    tutorialdialog.cpp
 
 HEADERS += \
     mainwindow.h \
     pointselectorwidget.h \
-    pointshandler.h
+    pointshandler.h \
+    tutorialdialog.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    tutorialdialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

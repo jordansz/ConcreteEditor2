@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "tutorialdialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -14,5 +15,20 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+
+void MainWindow::on_tutorialBtn_clicked()
+{
+    this->hide();
+    TutorialDialog tutorialDialog(this);
+    tutorialDialog.exec();
+    this->show();
+}
+
+void MainWindow::recieveTutorialDialogSize(QSize newSize, QPoint newPos)
+{
+    resize(newSize);
+    move(newPos);
 }
 

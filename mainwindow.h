@@ -16,6 +16,12 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_tutorialBtn_clicked();
+
+public slots:
+    void recieveTutorialDialogSize(QSize newSize, QPoint newPos);
+
 private:
     Ui::MainWindow *ui;
     PointSelectorWidget *pointSelectorWidget;
