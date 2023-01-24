@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui openglwidgets opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -11,12 +11,14 @@ CONFIG += c++17
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
+    myopenglwidget.cpp \
     pointselectorwidget.cpp \
     pointshandler.cpp \
     tutorialdialog.cpp
 
 HEADERS += \
     mainwindow.h \
+    myopenglwidget.h \
     pointselectorwidget.h \
     pointshandler.h \
     tutorialdialog.h

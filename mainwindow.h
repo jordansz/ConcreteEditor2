@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "pointselectorwidget.h"
+#include "myopenglwidget.h"
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -25,5 +26,6 @@ public slots:
 private:
     Ui::MainWindow *ui;
     PointSelectorWidget *pointSelectorWidget;
+    MyOpenGLWidget *myOpenglWidget;
 };
 #endif // MAINWINDOW_H
