@@ -58,7 +58,7 @@ bool PointsHandler::isEmpty()
     return points.isEmpty();
 }
 
-bool PointsHandler::checkClosedCircle()
+bool PointsHandler::checkClosedRegion()
 {
     if(points.size() > 2){
         double x1 = points[0].x();

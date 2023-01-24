@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/Images">
         <file>homeButton.png</file>
+        <file>stackoverflow_Qt_dimmensios_question.png</file>
     </qresource>
     <qresource prefix="/Shaders">
         <file>default.frag</file>

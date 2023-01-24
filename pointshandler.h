@@ -16,7 +16,7 @@ public:
     void setSizes(QSize imageSize, QSize widgetSize);
     void updatePoints();
     bool isEmpty();
-    bool checkClosedCircle();
+    bool checkClosedRegion();
 
 private:
     QList<QPointF> points;

@@ -25,6 +25,7 @@ void PointSelectorWidget::setImage(const QString fp)
     }
 }
 
+// resize image to fit the resized widget from resizeEvent()
 void PointSelectorWidget::resizeImage()
 {
     image = image2.scaled(this->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
@@ -41,13 +42,16 @@ void PointSelectorWidget::resizeEvent(QResizeEvent *event)
 
 void PointSelectorWidget::paintEvent(QPaintEvent *event)
 {
+    // from the image size and resolution size of widget draw it in the center
     double xOffset = (this->width() - image.width()) / 2;
     double yOffset = (this->height() - image.height()) / 2;
     QList<QPointF> points = pointsHandler.getPoints();
     QPainter painter(this);
+
+    // If image is not ready to be edited (not a close region) draw all lines and points
     if(!editImage){
         qDebug() << "not cropping";
-        painter.setPen(Qt::white);
+        painter.setPen(Qt::gray);
         painter.drawImage(xOffset, yOffset, image);
 
 
@@ -58,7 +62,7 @@ void PointSelectorWidget::paintEvent(QPaintEvent *event)
             painter.drawLine(points[i], points[i + 1]);
         }
     }
-
+    //The selected region is closed, crop it out
     if(editImage){
         QPolygon clipPolygon = QPolygonF(points).toPolygon();
         QRegion clippedRegion(clipPolygon, Qt::OddEvenFill);
@@ -75,14 +79,18 @@ void PointSelectorWidget::paintEvent(QPaintEvent *event)
 
 void PointSelectorWidget::mousePressEvent(QMouseEvent *event)
 {
-    pointsHandler.addPoint(event->pos());
-    editImage = pointsHandler.checkClosedCircle();
-    QWidget::mousePressEvent(event);
-    update();                                   //for drawing point immediatly
+    // Image is not ready to be cropped, continue checking new points close it
+    if(!editImage){
+        pointsHandler.addPoint(event->pos());
+        editImage = pointsHandler.checkClosedRegion();
+        QWidget::mousePressEvent(event);
+        update();                                   //for drawing point immediatly
+    }
 }
 
 void PointSelectorWidget::showEvent(QShowEvent *event)
 {
+
     pointsHandler.setPreviousSizes(image.size(), this->size());
     pointsHandler.setSizes(image.size(), this->size());
     update();
