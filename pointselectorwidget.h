@@ -33,6 +33,9 @@ protected:
     void showEvent(QShowEvent *event);
     void keyPressEvent(QKeyEvent *event);
 
+signals:
+    void sendImg(QImage img);
+
 private:
     QImage image;
     QImage image2;

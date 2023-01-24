@@ -10,6 +10,7 @@ PointSelectorWidget::PointSelectorWidget(QWidget *parent)
     setImage(":/Images/homeButton.png");
     this->adjustSize();
     editImage = false;
+    connect(this, SIGNAL(sendImg(QImage)), parent, SLOT(initMyOpenglWidget(QImage)));
 }
 
 PointSelectorWidget::~PointSelectorWidget(){
@@ -83,6 +84,9 @@ void PointSelectorWidget::mousePressEvent(QMouseEvent *event)
     if(!editImage){
         pointsHandler.addPoint(event->pos());
         editImage = pointsHandler.checkClosedRegion();
+        if(editImage){
+            emit sendImg(image);
+        }
         QWidget::mousePressEvent(event);
         update();                                   //for drawing point immediatly
     }

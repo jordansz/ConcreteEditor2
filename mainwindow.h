@@ -4,6 +4,7 @@
 #include "pointselectorwidget.h"
 #include "myopenglwidget.h"
 #include <QMainWindow>
+#include <QImage>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -22,6 +23,7 @@ private slots:
 
 public slots:
     void recieveTutorialDialogSize(QSize newSize, QPoint newPos);
+    void initMyOpenglWidget(QImage img);
 
 private:
     Ui::MainWindow *ui;

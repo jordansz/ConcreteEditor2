@@ -6,10 +6,12 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , pointSelectorWidget(new PointSelectorWidget(this))
+    , myOpenglWidget(new MyOpenGLWidget(this))
 {
     ui->setupUi(this);
     pointSelectorWidget->setFocusPolicy(Qt::StrongFocus);       // needed for backspace cropping selection
     ui->stackedWidget->addWidget(pointSelectorWidget);
+    ui->stackedWidget->addWidget(myOpenglWidget);
     ui->stackedWidget->setCurrentIndex(2);
 }
 
@@ -31,5 +33,11 @@ void MainWindow::recieveTutorialDialogSize(QSize newSize, QPoint newPos)
 {
     resize(newSize);
     move(newPos);
+}
+
+void MainWindow::initMyOpenglWidget(QImage img)
+{
+    qDebug() << "initializing opengl stuff";
+    ui->stackedWidget->setCurrentIndex(3);
 }
 
