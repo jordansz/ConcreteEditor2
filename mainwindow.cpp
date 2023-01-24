@@ -38,6 +38,9 @@ void MainWindow::recieveTutorialDialogSize(QSize newSize, QPoint newPos)
 void MainWindow::initMyOpenglWidget(QImage img)
 {
     qDebug() << "initializing opengl stuff";
+//    myOpenglWidget->changeTexture(img);
+    QImage newImg(":/Images/stackoverflow_Qt_dimmensios_question.png");
+    myOpenglWidget->changeTexture(newImg);
     ui->stackedWidget->setCurrentIndex(3);
 }
 

@@ -8,6 +8,8 @@
 #include <QOpenGLTexture>
 #include <QOpenGLShaderProgram>
 #include <QOpenGLShader>
+#include <QImage>
+#include <QShowEvent>
 
 #include <QMouseEvent>
 #include <QKeyEvent>
@@ -18,6 +20,7 @@ class MyOpenGLWidget : public QOpenGLWidget, public QOpenGLFunctions
 public:
     MyOpenGLWidget(QWidget *parent = nullptr);
     ~MyOpenGLWidget();
+    void changeTexture(QImage img);
 
 protected:
     void initializeGL() override;
@@ -25,11 +28,13 @@ protected:
     void resizeGL(int w, int h) override;
     void mousePressEvent(QMouseEvent *event) override;
     void keyPressEvent(QKeyEvent *event) override;
+    void showEvent(QShowEvent *event) override;
 
 private:
     void tansformCube();
-    void initTextures(const QString &fp1, const QString &fp2);
+    void initTextures(QImage img1, QImage img2);
     void initShader(const QString &fp1, const QString &fp2);
+
 
     QOpenGLVertexArrayObject m_vao;
     QOpenGLBuffer m_vbo;

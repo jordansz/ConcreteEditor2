@@ -42,6 +42,13 @@ MyOpenGLWidget::~MyOpenGLWidget()
     doneCurrent();
 }
 
+void MyOpenGLWidget::changeTexture(QImage img)
+{
+    qDebug() << "changing texture: " << img.isNull();
+    initTextures(img, img);
+
+}
+
 void MyOpenGLWidget::initializeGL()
 {
     initializeOpenGLFunctions();
@@ -59,8 +66,15 @@ void MyOpenGLWidget::initializeGL()
     m_vbo.setUsagePattern(QOpenGLBuffer::DynamicDraw);
     m_vbo.allocate((void*)cube, sizeof(cube));
 
+//    QImage img1(":/Images/homeButton.png");
+//    QImage img2(":/Images/homeButton.png");
+//    if(img1.isNull() || img2.isNull()){
+//        qDebug() << "Error loading images." << __FILE__;
+//    }
+
     initShader(":/Shaders/default.vert", ":/Shaders/default.frag");
-    initTextures(":/Images/homeButton.png", ":/Images/homeButton.png");
+//    qDebug() << "before initing";
+//    initTextures(img1, img2);
 
     int stride = 10 * sizeof(GLfloat);
     attributePos = m_program->attributeLocation("position");
@@ -112,8 +126,8 @@ void MyOpenGLWidget::resizeGL(int w, int h){
     glViewport(0, 0, (GLsizei)w, (GLsizei)h);
     QSize size(w, h);
     QSize imgSize(1, 1);
-    qDebug() << "Viewport: " << size << "   Widget: " << this->size() << " Image: " << imgSize;
-    qDebug() << "w: " << w << "h: " << h;
+//    qDebug() << "Viewport: " << size << "   Widget: " << this->size() << " Image: " << imgSize;
+//    qDebug() << "w: " << w << "h: " << h;
 //    if(w >= h){
 
 //    }
@@ -121,7 +135,7 @@ void MyOpenGLWidget::resizeGL(int w, int h){
 
 
 void MyOpenGLWidget::mousePressEvent(QMouseEvent *event){
-    qDebug() << "Point clicked: " << event->pos();
+//    qDebug() << "Point clicked: " << event->pos();
 }
 
 void MyOpenGLWidget::keyPressEvent(QKeyEvent *event)
@@ -129,25 +143,39 @@ void MyOpenGLWidget::keyPressEvent(QKeyEvent *event)
     tansformCube();
 }
 
-void MyOpenGLWidget::initTextures(const QString &fp1, const QString &fp2){
+void MyOpenGLWidget::showEvent(QShowEvent *event)
+{
+    QOpenGLWidget::showEvent(event);
+}
 
-    QImage img1(fp1);
-    QImage img2(fp2);
-    if(img1.isNull() || img2.isNull()){
-        qDebug() << "Error loading images." << __FILE__;
-    }
-    else{
+void MyOpenGLWidget::initTextures(QImage img1, QImage img2){
+//    m_texture1->bind();
+//    m_texture1->destroy();
+//    QImage img1(fp1);
+//    QImage img2(fp2);
+//    if(img1.isNull() || img2.isNull()){
+//        qDebug() << "Error loading images." << __FILE__;
+//    }
+//    else{
 //        imgRatio = img1.width() / img1.height();
+//        m_texture1->release();
+    qDebug() << "In inittextures";
+//    if(m_texture1->isCreated()){
+//        qDebug() << "image doesn't exist";
         m_texture1 = new QOpenGLTexture(img1);
         m_texture1->setMinificationFilter(QOpenGLTexture::Nearest);
         m_texture1->setMagnificationFilter(QOpenGLTexture::Linear);
         m_texture1->setWrapMode(QOpenGLTexture::Repeat);
+//    }
+//    else{
+//        qDebug() << "image exists";
+//    }
 
 //        m_texture2 = new QOpenGLTexture(img2);
 //        m_texture2->setMinificationFilter(QOpenGLTexture::Nearest);
 //        m_texture2->setMagnificationFilter(QOpenGLTexture::Linear);
 //        m_texture2->setWrapMode(QOpenGLTexture::Repeat);
-    }
+//    }
 }
 
 void MyOpenGLWidget::initShader(const QString &fp1, const QString &fp2){

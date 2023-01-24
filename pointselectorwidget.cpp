@@ -85,7 +85,9 @@ void PointSelectorWidget::mousePressEvent(QMouseEvent *event)
         pointsHandler.addPoint(event->pos());
         editImage = pointsHandler.checkClosedRegion();
         if(editImage){
-            emit sendImg(image);
+            QImage testImg(":/Images/stackoverflow_Qt_dimmensios_question.png");
+            emit sendImg(testImg);
+//            emit sendImg(image);
         }
         QWidget::mousePressEvent(event);
         update();                                   //for drawing point immediatly
