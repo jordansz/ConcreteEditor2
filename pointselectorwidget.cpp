@@ -8,6 +8,7 @@ PointSelectorWidget::PointSelectorWidget(QWidget *parent)
 {
     setParent(parent);
     setImage(":/Images/homeButton.png");
+//    setImage(":/Images/stackoverflow_Qt_dimmensios_question.png");
     this->adjustSize();
     editImage = false;
     connect(this, SIGNAL(sendImg(QImage)), parent, SLOT(initMyOpenglWidget(QImage)));
@@ -32,6 +33,23 @@ void PointSelectorWidget::resizeImage()
     image = image2.scaled(this->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
 }
 
+void PointSelectorWidget::restart()
+{
+    editImage = false;
+    pointsHandler.resetPoints();
+    update();
+}
+
+void PointSelectorWidget::deletePoint()
+{
+    image = image2.scaled(image.size(), Qt::KeepAspectRatio); //possibly not but //needed for removing the point left behind after backspace, just redoing it
+    if(!pointsHandler.isEmpty()){
+        editImage = false;
+        pointsHandler.deletePoint();
+        update();
+    }
+}
+
 void PointSelectorWidget::resizeEvent(QResizeEvent *event)
 {
     pointsHandler.setPreviousSizes(image.size(), event->oldSize());
@@ -53,7 +71,6 @@ void PointSelectorWidget::paintEvent(QPaintEvent *event)
         painter.setPen(Qt::gray);
         painter.drawImage(xOffset, yOffset, image);
 
-
         for(auto point : points){
             painter.drawEllipse(point, 10, 10);
         }
@@ -61,38 +78,58 @@ void PointSelectorWidget::paintEvent(QPaintEvent *event)
             painter.drawLine(points[i], points[i + 1]);
         }
     }
-    //The selected region is closed, crop it out
     if(editImage){
+        // from the image size and resolution size of widget draw it in the center
+        QList<QPointF> points = pointsHandler.getPoints();
         QPolygon clipPolygon = QPolygonF(points).toPolygon();
         QRegion clippedRegion(clipPolygon, Qt::OddEvenFill);
-        QRect translatedImageRect = image.rect().translated(QPoint(xOffset, yOffset));
-        QRegion unClippedRegion = QRegion(translatedImageRect).subtracted(clippedRegion);
+//        QRect translatedImageRect = image.rect().translated(QPoint(xOffset, yOffset));
+//        QRegion unClippedRegion = QRegion(translatedImageRect).subtracted(clippedRegion);
+        QRegion unClippedRegion = QRegion(image.rect()).subtracted(clippedRegion);
         QImage output(image.size(), QImage::Format_ARGB32);
         QPainter painter(&output);
         output.fill(Qt::transparent);
         painter.setClipRegion(unClippedRegion, Qt::ReplaceClip);
-        painter.drawImage(xOffset, yOffset, image);
+
+
+        QRectF imgRec(0, 0, image.width(), image.height());
+        qDebug() << xOffset;
+        painter.drawImage(imgRec, image);
         painter.end();
+//        QPainter painter2(this);
+//        painter2.drawImage(xOffset, yOffset, output);
+//        painter2.end();
+//        qDebug() << output.save("C:/Users/jszym/OneDrive/Pictures/Saved Pictures/newImg.png");
+
         emit sendImg(output);
     }
-
     QWidget::paintEvent(event);
 }
 
 void PointSelectorWidget::mousePressEvent(QMouseEvent *event)
 {
+    qDebug() << event->pos();
     // Image is not ready to be cropped, continue checking new points close it
     if(!editImage){
         pointsHandler.addPoint(event->pos());
         editImage = pointsHandler.checkClosedRegion();
-//        if(editImage){
-//            QImage testImg(":/Images/stackoverflow_Qt_dimmensios_question.png");
-//            emit sendImg(testImg);
-//            emit sendImg(image);
-//        }
-        QWidget::mousePressEvent(event);
         update();                                   //for drawing point immediatly
     }
+
+//    //The selected region is closed, crop it out
+//    if(editImage){
+//        QPolygon clipPolygon = QPolygonF(points).toPolygon();
+//        QRegion clippedRegion(clipPolygon, Qt::OddEvenFill);
+//        QRect translatedImageRect = image.rect().translated(QPoint(xOffset, yOffset));
+//        QRegion unClippedRegion = QRegion(translatedImageRect).subtracted(clippedRegion);
+//        QImage output(image.size(), QImage::Format_ARGB32);
+//        QPainter painter(&output);
+//        output.fill(Qt::transparent);
+//        painter.setClipRegion(unClippedRegion, Qt::ReplaceClip);
+//        painter.drawImage(xOffset, yOffset, image);
+//        painter.end();
+//        emit sendImg(output);
+//    }
 }
 
 void PointSelectorWidget::showEvent(QShowEvent *event)
@@ -107,11 +144,6 @@ void PointSelectorWidget::showEvent(QShowEvent *event)
 void PointSelectorWidget::keyPressEvent(QKeyEvent *event)
 {
     if(event->key() == Qt::Key_Backspace){
-        image = image2.scaled(image.size(), Qt::KeepAspectRatio);       //needed for removing the point left behind after backspace, just redoing it
-        if(!pointsHandler.isEmpty()){
-            editImage = false;
-            pointsHandler.deletePoint();
-            update();
-        }
+        deletePoint();
     }
 }

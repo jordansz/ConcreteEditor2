@@ -136,7 +136,7 @@ void MyOpenGLWidget::resizeGL(int w, int h){
 
 
 void MyOpenGLWidget::mousePressEvent(QMouseEvent *event){
-//    qDebug() << "Point clicked: " << event->pos();
+    qDebug() << "Point clicked: " << event->pos();
 }
 
 void MyOpenGLWidget::keyPressEvent(QKeyEvent *event)

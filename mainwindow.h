@@ -21,6 +21,10 @@ public:
 private slots:
     void on_tutorialBtn_clicked();
 
+    void on_restartBtn_clicked();
+
+    void on_undoBtn_clicked();
+
 public slots:
     void recieveTutorialDialogSize(QSize newSize, QPoint newPos);
     void initMyOpenglWidget(QImage img);

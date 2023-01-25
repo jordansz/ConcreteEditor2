@@ -17,6 +17,7 @@ public:
     void updatePoints();
     bool isEmpty();
     bool checkClosedRegion();
+    void resetPoints();
 
 private:
     QList<QPointF> points;

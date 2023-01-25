@@ -25,6 +25,8 @@ public:
     ~PointSelectorWidget();
     void setImage(const QString fp);
     void resizeImage();
+    void restart();
+    void deletePoint();
 
 protected:
     void resizeEvent(QResizeEvent *event);

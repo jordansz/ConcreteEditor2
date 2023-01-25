@@ -75,3 +75,9 @@ bool PointsHandler::checkClosedRegion()
     }
     return false;
 }
+
+void PointsHandler::resetPoints()
+{
+    points.clear();
+}
+
