@@ -47,11 +47,9 @@ void PointSelectorWidget::paintEvent(QPaintEvent *event)
     double xOffset = (this->width() - image.width()) / 2;
     double yOffset = (this->height() - image.height()) / 2;
     QList<QPointF> points = pointsHandler.getPoints();
-    QPainter painter(this);
-
     // If image is not ready to be edited (not a close region) draw all lines and points
     if(!editImage){
-        qDebug() << "not cropping";
+        QPainter painter(this);
         painter.setPen(Qt::gray);
         painter.drawImage(xOffset, yOffset, image);
 
@@ -69,10 +67,13 @@ void PointSelectorWidget::paintEvent(QPaintEvent *event)
         QRegion clippedRegion(clipPolygon, Qt::OddEvenFill);
         QRect translatedImageRect = image.rect().translated(QPoint(xOffset, yOffset));
         QRegion unClippedRegion = QRegion(translatedImageRect).subtracted(clippedRegion);
-        painter.save();
+        QImage output(image.size(), QImage::Format_ARGB32);
+        QPainter painter(&output);
+        output.fill(Qt::transparent);
         painter.setClipRegion(unClippedRegion, Qt::ReplaceClip);
         painter.drawImage(xOffset, yOffset, image);
-        painter.restore();
+        painter.end();
+        emit sendImg(output);
     }
 
     QWidget::paintEvent(event);
@@ -84,11 +85,11 @@ void PointSelectorWidget::mousePressEvent(QMouseEvent *event)
     if(!editImage){
         pointsHandler.addPoint(event->pos());
         editImage = pointsHandler.checkClosedRegion();
-        if(editImage){
-            QImage testImg(":/Images/stackoverflow_Qt_dimmensios_question.png");
-            emit sendImg(testImg);
+//        if(editImage){
+//            QImage testImg(":/Images/stackoverflow_Qt_dimmensios_question.png");
+//            emit sendImg(testImg);
 //            emit sendImg(image);
-        }
+//        }
         QWidget::mousePressEvent(event);
         update();                                   //for drawing point immediatly
     }

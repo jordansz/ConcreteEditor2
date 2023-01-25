@@ -20,7 +20,7 @@ class MyOpenGLWidget : public QOpenGLWidget, public QOpenGLFunctions
 public:
     MyOpenGLWidget(QWidget *parent = nullptr);
     ~MyOpenGLWidget();
-    void changeTexture(QImage img);
+    void updateTexture(QImage img);
 
 protected:
     void initializeGL() override;

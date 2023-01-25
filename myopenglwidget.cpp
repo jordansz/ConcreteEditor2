@@ -42,7 +42,7 @@ MyOpenGLWidget::~MyOpenGLWidget()
     doneCurrent();
 }
 
-void MyOpenGLWidget::changeTexture(QImage img)
+void MyOpenGLWidget::updateTexture(QImage img)
 {
     qDebug() << "changing texture: " << img.isNull();
     initTextures(img, img);
@@ -53,6 +53,7 @@ void MyOpenGLWidget::initializeGL()
 {
     initializeOpenGLFunctions();
     glClearColor(0.9f, 0.8f, 0.8f, 0.0f);
+//    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
