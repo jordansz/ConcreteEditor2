@@ -80,7 +80,8 @@ void PointSelectorWidget::paintEvent(QPaintEvent *event)
     }
     if(editImage){
         // from the image size and resolution size of widget draw it in the center
-        QList<QPointF> points = pointsHandler.getPoints();
+//        QList<QPointF> points = pointsHandler.getPoints();
+        QList<QPointF> points = pointsHandler.getShiftedPoints(xOffset, yOffset);
         QPolygon clipPolygon = QPolygonF(points).toPolygon();
         QRegion clippedRegion(clipPolygon, Qt::OddEvenFill);
 //        QRect translatedImageRect = image.rect().translated(QPoint(xOffset, yOffset));
@@ -96,11 +97,6 @@ void PointSelectorWidget::paintEvent(QPaintEvent *event)
         qDebug() << xOffset;
         painter.drawImage(imgRec, image);
         painter.end();
-//        QPainter painter2(this);
-//        painter2.drawImage(xOffset, yOffset, output);
-//        painter2.end();
-//        qDebug() << output.save("C:/Users/jszym/OneDrive/Pictures/Saved Pictures/newImg.png");
-
         emit sendImg(output);
     }
     QWidget::paintEvent(event);
@@ -115,21 +111,6 @@ void PointSelectorWidget::mousePressEvent(QMouseEvent *event)
         editImage = pointsHandler.checkClosedRegion();
         update();                                   //for drawing point immediatly
     }
-
-//    //The selected region is closed, crop it out
-//    if(editImage){
-//        QPolygon clipPolygon = QPolygonF(points).toPolygon();
-//        QRegion clippedRegion(clipPolygon, Qt::OddEvenFill);
-//        QRect translatedImageRect = image.rect().translated(QPoint(xOffset, yOffset));
-//        QRegion unClippedRegion = QRegion(translatedImageRect).subtracted(clippedRegion);
-//        QImage output(image.size(), QImage::Format_ARGB32);
-//        QPainter painter(&output);
-//        output.fill(Qt::transparent);
-//        painter.setClipRegion(unClippedRegion, Qt::ReplaceClip);
-//        painter.drawImage(xOffset, yOffset, image);
-//        painter.end();
-//        emit sendImg(output);
-//    }
 }
 
 void PointSelectorWidget::showEvent(QShowEvent *event)

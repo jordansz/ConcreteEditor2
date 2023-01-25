@@ -81,3 +81,12 @@ void PointsHandler::resetPoints()
     points.clear();
 }
 
+QList<QPointF> PointsHandler::getShiftedPoints(double xOff, double yOff)
+{
+    QList<QPointF> shiftedPoints;
+    for(int i = 0; i < points.size(); i++){
+        shiftedPoints.append(QPointF(points[i].x() - xOff, points[i].y() - yOff));
+    }
+    return shiftedPoints;
+}
+

@@ -18,6 +18,7 @@ public:
     bool isEmpty();
     bool checkClosedRegion();
     void resetPoints();
+    QList<QPointF> getShiftedPoints(double xOff, double yOff);
 
 private:
     QList<QPointF> points;
