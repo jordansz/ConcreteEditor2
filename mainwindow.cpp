@@ -58,3 +58,32 @@ void MainWindow::on_undoBtn_clicked()
     pointSelectorWidget->setFocusPolicy(Qt::StrongFocus);
 }
 
+
+/*
+ How to load a user image they pick!!!!!!!!!!
+
+ #include <QFileDialog>
+ ...
+
+ QString filename = QFileDialog::GetOpenFileName(this, tr("Choose"), "", tr("Images (*png ... *jpg)"))  "Images (... part is allowables photo types... opens
+
+ if (QString::compare(filename, QString()) != 0)    // check if user picks an image
+{
+    //create QImage variable
+    QImage image;
+    bool valid = image.load(filename);
+
+    //make sure the image is good to use
+    if(valid){
+
+    //put image on label
+    ui->label->setPixmap(QPixmap::fromImage(image);
+
+
+    }
+    else{
+    //error handling done here
+    }
+}
+*/
+
