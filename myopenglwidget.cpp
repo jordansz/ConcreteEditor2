@@ -5,15 +5,25 @@
 #include <QImage>
 
 GLfloat cube[] = {
-//Square1 pos                          text Coord   color
-         -2.0f, -2.0f, 0.0f, 1.0f,     0.0f, 1.0f,  1.0f, 0.0f, 0.5f, 0.5f,
-          2.0f, -2.0f, 0.0f, 1.0f,     1.0f, 1.0f,  1.0f, 0.0f, 0.5f, 0.5f,
-          2.0f,  2.0f, 0.0f, 1.0f,     1.0f, 0.0f,  1.0f, 0.0f, 0.5f, 0.5f,
-         -2.0f,  2.0f, 0.0f, 1.0f,     0.0f, 0.0f,  1.0f, 0.0f, 0.5f, 0.5f,
+//Square1 pos                  textid   text Coord       color
+    -2.0f, -2.0f, -2.0f, 1.0f,  1,       0.0f, 1.0f,      1.0f, 1.0f, 0.5f, 0.0f,
+     2.0f, -2.0f, -2.0f, 1.0f,  1,       1.0f, 1.0f,      1.0f, 1.0f, 0.5f, 0.0f,
+     2.0f,  2.0f, -2.0f, 1.0f,  1,       1.0f, 0.0f,      1.0f, 1.0f, 0.5f, 0.0f,
+    -2.0f,  2.0f, -2.0f, 1.0f,  1,       0.0f, 0.0f,      1.0f, 1.0f, 0.5f, 0.0f,
+
+    -2.0f, -2.0f, 0.0f, 1.0f,  0,       0.0f, 1.0f,      1.0f, 0.0f, 0.5f, 0.0f,       //bottom left
+     2.0f, -2.0f, 0.0f, 1.0f,  0,       1.0f, 1.0f,      1.0f, 0.0f, 0.5f, 0.0f,       //bottom right
+     2.0f,  2.0f, 0.0f, 1.0f,  0,       1.0f, 0.0f,      1.0f, 0.0f, 0.5f, 0.0f,       //top right
+    -2.0f,  2.0f, 0.0f, 1.0f,  0,       0.0f, 0.0f,      1.0f, 0.0f, 0.5f, 0.0f,       //top left
+
+
     };
+
+int stride = 11 * sizeof(GLfloat);
 
     GLuint cubeIndeces[] = {
         0, 1, 2, 0, 3, 2,
+        4, 5, 6, 4, 7, 6,
 //        0, 1, 1, 2, 2, 3, 3, 0    //cube wire frame
     };
 
@@ -44,7 +54,7 @@ MyOpenGLWidget::~MyOpenGLWidget()
 
 void MyOpenGLWidget::updateTexture(QImage img)
 {
-    qDebug() << "changing texture: " << img.isNull();
+    qDebug() << "changing texture: ";
     initTextures(img, img);
 
 }
@@ -53,8 +63,8 @@ void MyOpenGLWidget::initializeGL()
 {
     initializeOpenGLFunctions();
     glClearColor(0.9f, 0.8f, 0.8f, 0.0f);
-//    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-    glEnable(GL_DEPTH_TEST);
+//    glClearColor(1.0f, 1.0f, 1.0f, 0.5f);
+    glDisable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -77,18 +87,21 @@ void MyOpenGLWidget::initializeGL()
 //    qDebug() << "before initing";
 //    initTextures(img1, img2);
 
-    int stride = 10 * sizeof(GLfloat);
     attributePos = m_program->attributeLocation("position");
     m_program->enableAttributeArray(attributePos);
     m_program->setAttributeBuffer(attributePos, GL_FLOAT, 0, 4, stride);
 
+    attributeTextIndex = m_program->attributeLocation("tIndex");
+    m_program->enableAttributeArray(attributeTextIndex);
+    m_program->setAttributeBuffer(attributeTextIndex, GL_FLOAT, 4 * sizeof(GLfloat), 1, stride);
+
     attributeTextCoord = m_program->attributeLocation("textCoord");
     m_program->enableAttributeArray(attributeTextCoord);
-    m_program->setAttributeBuffer(attributeTextCoord, GL_FLOAT, 4 * sizeof(GLfloat), 2, stride);
+    m_program->setAttributeBuffer(attributeTextCoord, GL_FLOAT, 5 * sizeof(GLfloat), 2, stride);
 
     attributeColor = m_program->attributeLocation("color");
     m_program->enableAttributeArray(attributeColor);
-    m_program->setAttributeBuffer(attributeColor, GL_FLOAT, 6* sizeof(GLfloat), 4, stride);
+    m_program->setAttributeBuffer(attributeColor, GL_FLOAT, 7 * sizeof(GLfloat), 4, stride);
 
     m_program->setUniformValue("u_Texture", 0);
 
@@ -160,7 +173,7 @@ void MyOpenGLWidget::initTextures(QImage img1, QImage img2){
 //    else{
 //        imgRatio = img1.width() / img1.height();
 //        m_texture1->release();
-    qDebug() << "In inittextures";
+    qDebug() << "Initializing textures.";
 //    if(m_texture1->isCreated()){
 //        qDebug() << "image doesn't exist";
         m_texture1 = new QOpenGLTexture(img1);
