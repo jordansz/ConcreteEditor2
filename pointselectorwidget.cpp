@@ -42,7 +42,7 @@ void PointSelectorWidget::restart()
 
 void PointSelectorWidget::deletePoint()
 {
-    image = image2.scaled(image.size(), Qt::KeepAspectRatio); //possibly not but //needed for removing the point left behind after backspace, just redoing it
+//    image = image2.scaled(image.size(), Qt::KeepAspectRatio); //possibly not but //needed for removing the point left behind after backspace, just redoing it
     if(!pointsHandler.isEmpty()){
         editImage = false;
         pointsHandler.deletePoint();

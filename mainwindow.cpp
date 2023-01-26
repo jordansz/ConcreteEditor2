@@ -55,5 +55,6 @@ void MainWindow::on_restartBtn_clicked()
 void MainWindow::on_undoBtn_clicked()
 {
     pointSelectorWidget->deletePoint();
+    pointSelectorWidget->setFocusPolicy(Qt::StrongFocus);
 }
 
