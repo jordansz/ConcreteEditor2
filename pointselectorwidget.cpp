@@ -6,10 +6,11 @@
 PointSelectorWidget::PointSelectorWidget(QWidget *parent)
     : QWidget{parent}
 {
+    qDebug() << "initalizing!!!";
     setParent(parent);
-//    setImage(":/Images/homeButton.png");
+    setImage(":/Images/homeButton.png");
 //    setImage(":/Images/stackoverflow_Qt_dimmensios_question.png");
-    this->adjustSize();
+//    this->adjustSize();
     editImage = false;
     connect(this, SIGNAL(sendImg(QImage)), parent, SLOT(initMyOpenglWidget(QImage)));
 }

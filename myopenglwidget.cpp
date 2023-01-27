@@ -163,33 +163,10 @@ void MyOpenGLWidget::showEvent(QShowEvent *event)
 }
 
 void MyOpenGLWidget::initTextures(QImage img1, QImage img2){
-//    m_texture1->bind();
-//    m_texture1->destroy();
-//    QImage img1(fp1);
-//    QImage img2(fp2);
-//    if(img1.isNull() || img2.isNull()){
-//        qDebug() << "Error loading images." << __FILE__;
-//    }
-//    else{
-//        imgRatio = img1.width() / img1.height();
-//        m_texture1->release();
-    qDebug() << "Initializing textures.";
-//    if(m_texture1->isCreated()){
-//        qDebug() << "image doesn't exist";
         m_texture1 = new QOpenGLTexture(img1);
         m_texture1->setMinificationFilter(QOpenGLTexture::Nearest);
         m_texture1->setMagnificationFilter(QOpenGLTexture::Linear);
         m_texture1->setWrapMode(QOpenGLTexture::Repeat);
-//    }
-//    else{
-//        qDebug() << "image exists";
-//    }
-
-//        m_texture2 = new QOpenGLTexture(img2);
-//        m_texture2->setMinificationFilter(QOpenGLTexture::Nearest);
-//        m_texture2->setMagnificationFilter(QOpenGLTexture::Linear);
-//        m_texture2->setWrapMode(QOpenGLTexture::Repeat);
-//    }
 }
 
 void MyOpenGLWidget::initShader(const QString &fp1, const QString &fp2){

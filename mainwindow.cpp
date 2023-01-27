@@ -4,6 +4,7 @@
 
 #include <QFileDialog>
 #include "assert.h"
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -17,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
     pointSelectorWidget->setFocusPolicy(Qt::StrongFocus);       // needed for backspace cropping selection
     ui->stackedWidget->addWidget(pointSelectorWidget);
     ui->stackedWidget->addWidget(myOpenglWidget);
-    ui->stackedWidget->setCurrentIndex(ui->stackedWidget->indexOf(pointSelectorWidget));
+    ui->stackedWidget->setCurrentIndex(ui->stackedWidget->indexOf(&widget));
 }
 
 MainWindow::~MainWindow()
@@ -65,19 +66,26 @@ void MainWindow::on_undoBtn_clicked()
 
 void MainWindow::on_selectPicBtn_clicked()
 {
-    QString filename = QFileDialog::getOpenFileName(this, tr("Choose"), "", tr("Images (*png *jpg)"));  //"Images (... part is allowables photo types... opens
-
-    if (QString::compare(filename, QString()) != 0)    // check if user picks an image
+    QString filename = QFileDialog::getOpenFileName(this, tr("Select Image"), "", tr("Images (*png *jpg)"));  //"Images (... part is allowables photo types... opens
+    qDebug() << filename;
+    // check if user picks an image
+    if(!filename.isNull())
    {
+
         //create QImage variable
         QImage image;
         assert(image.load(filename));
-        qDebug() << "User Selected Image";
+        pointSelectorWidget = NULL;
         delete pointSelectorWidget;
         pointSelectorWidget = new PointSelectorWidget(image, this);
+//        pointSelectorWidget->restart();
+//        pointSelectorWidget->setImage(image);
         pointSelectorWidget->setFocusPolicy(Qt::StrongFocus);       // needed for backspace cropping selection
         ui->stackedWidget->addWidget(pointSelectorWidget);
         ui->stackedWidget->setCurrentIndex(ui->stackedWidget->indexOf(pointSelectorWidget));
+    }
+    else{
+        QMessageBox::critical(this, "Problem with selected Image", "Unkown Error");
     }
 }
 
