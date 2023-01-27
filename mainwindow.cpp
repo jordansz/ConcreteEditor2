@@ -85,7 +85,7 @@ void MainWindow::on_selectPicBtn_clicked()
         ui->stackedWidget->setCurrentIndex(ui->stackedWidget->indexOf(pointSelectorWidget));
     }
     else{
-        QMessageBox::critical(this, "Problem with selected Image", "Unkown Error");
+        QMessageBox::warning(this, "Selecting Image error", "No image was selected or an unkown Error occured");
     }
 }
 

@@ -8,7 +8,7 @@ PointSelectorWidget::PointSelectorWidget(QWidget *parent)
 {
     qDebug() << "initalizing!!!";
     setParent(parent);
-    setImage(":/Images/homeButton.png");
+//    setImage(":/Images/homeButton.png");
 //    setImage(":/Images/stackoverflow_Qt_dimmensios_question.png");
 //    this->adjustSize();
     editImage = false;
@@ -20,7 +20,6 @@ PointSelectorWidget::PointSelectorWidget(QImage img, QWidget *parent)
 {
     setParent(parent);
     setImage(img);
-//    setImage(":/Images/stackoverflow_Qt_dimmensios_question.png");
     this->adjustSize();
     editImage = false;
     connect(this, SIGNAL(sendImg(QImage)), parent, SLOT(initMyOpenglWidget(QImage)));
@@ -122,6 +121,11 @@ void PointSelectorWidget::paintEvent(QPaintEvent *event)
 
 void PointSelectorWidget::mousePressEvent(QMouseEvent *event)
 {
+    //If default constructor gets called, no image is set so don't let user actions occur
+    //They still occur when resizing/painting but ignoring those warnings for now
+    if(image.isNull()){
+        return;
+    }
     qDebug() << event->pos();
     // Image is not ready to be cropped, continue checking new points close it
     if(!editImage){
