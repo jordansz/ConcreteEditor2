@@ -2,6 +2,9 @@
 #include "ui_mainwindow.h"
 #include "tutorialdialog.h"
 
+#include <QFileDialog>
+#include "assert.h"
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -58,32 +61,18 @@ void MainWindow::on_undoBtn_clicked()
     pointSelectorWidget->setFocusPolicy(Qt::StrongFocus);
 }
 
-
-/*
- How to load a user image they pick!!!!!!!!!!
-
- #include <QFileDialog>
- ...
-
- QString filename = QFileDialog::GetOpenFileName(this, tr("Choose"), "", tr("Images (*png ... *jpg)"))  "Images (... part is allowables photo types... opens
-
- if (QString::compare(filename, QString()) != 0)    // check if user picks an image
+void MainWindow::on_selectPicBtn_clicked()
 {
-    //create QImage variable
-    QImage image;
-    bool valid = image.load(filename);
+    QString filename = QFileDialog::getOpenFileName(this, tr("Choose"), "", tr("Images (*png *jpg)"));  //"Images (... part is allowables photo types... opens
 
-    //make sure the image is good to use
-    if(valid){
-
-    //put image on label
-    ui->label->setPixmap(QPixmap::fromImage(image);
-
-
-    }
-    else{
-    //error handling done here
+    if (QString::compare(filename, QString()) != 0)    // check if user picks an image
+   {
+        //create QImage variable
+        QImage image;
+        assert(image.load(filename));
+        qDebug() << "User Selected Image";
+        pointSelectorWidget->restart();
+        pointSelectorWidget->setImage(image);
     }
 }
-*/
 

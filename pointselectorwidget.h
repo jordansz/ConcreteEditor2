@@ -24,6 +24,7 @@ public:
     PointSelectorWidget(QWidget *parent = nullptr);
     ~PointSelectorWidget();
     void setImage(const QString fp);
+    void setImage(QImage img);
     void resizeImage();
     void restart();
     void deletePoint();

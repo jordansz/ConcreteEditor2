@@ -27,6 +27,12 @@ void PointSelectorWidget::setImage(const QString fp)
     }
 }
 
+void PointSelectorWidget::setImage(QImage img)
+{
+    image = img;
+    image2 = img;
+}
+
 // resize image to fit the resized widget from resizeEvent()
 void PointSelectorWidget::resizeImage()
 {
