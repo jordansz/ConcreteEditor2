@@ -22,6 +22,7 @@ class PointSelectorWidget : public QWidget
 
 public:
     PointSelectorWidget(QWidget *parent = nullptr);
+    PointSelectorWidget(QImage img, QWidget *parent = nullptr);
     ~PointSelectorWidget();
     void setImage(const QString fp);
     void setImage(QImage img);

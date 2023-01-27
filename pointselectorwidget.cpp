@@ -7,7 +7,18 @@ PointSelectorWidget::PointSelectorWidget(QWidget *parent)
     : QWidget{parent}
 {
     setParent(parent);
-    setImage(":/Images/homeButton.png");
+//    setImage(":/Images/homeButton.png");
+//    setImage(":/Images/stackoverflow_Qt_dimmensios_question.png");
+    this->adjustSize();
+    editImage = false;
+    connect(this, SIGNAL(sendImg(QImage)), parent, SLOT(initMyOpenglWidget(QImage)));
+}
+
+PointSelectorWidget::PointSelectorWidget(QImage img, QWidget *parent)
+    : QWidget{parent}
+{
+    setParent(parent);
+    setImage(img);
 //    setImage(":/Images/stackoverflow_Qt_dimmensios_question.png");
     this->adjustSize();
     editImage = false;

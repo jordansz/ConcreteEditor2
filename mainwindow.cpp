@@ -12,6 +12,8 @@ MainWindow::MainWindow(QWidget *parent)
     , myOpenglWidget(new MyOpenGLWidget(this))
 {
     ui->setupUi(this);
+    QWidget widget(this);
+    ui->stackedWidget->addWidget(&widget);
     pointSelectorWidget->setFocusPolicy(Qt::StrongFocus);       // needed for backspace cropping selection
     ui->stackedWidget->addWidget(pointSelectorWidget);
     ui->stackedWidget->addWidget(myOpenglWidget);
@@ -71,8 +73,11 @@ void MainWindow::on_selectPicBtn_clicked()
         QImage image;
         assert(image.load(filename));
         qDebug() << "User Selected Image";
-        pointSelectorWidget->restart();
-        pointSelectorWidget->setImage(image);
+        delete pointSelectorWidget;
+        pointSelectorWidget = new PointSelectorWidget(image, this);
+        pointSelectorWidget->setFocusPolicy(Qt::StrongFocus);       // needed for backspace cropping selection
+        ui->stackedWidget->addWidget(pointSelectorWidget);
+        ui->stackedWidget->setCurrentIndex(ui->stackedWidget->indexOf(pointSelectorWidget));
     }
 }
 
