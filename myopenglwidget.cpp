@@ -54,6 +54,7 @@ MyOpenGLWidget::~MyOpenGLWidget()
 
 void MyOpenGLWidget::updateTexture(QImage img)
 {
+//    this->transformCube();
     qDebug() << "changing texture: ";
     initTextures(img, img);
 
@@ -154,7 +155,7 @@ void MyOpenGLWidget::mousePressEvent(QMouseEvent *event){
 
 void MyOpenGLWidget::keyPressEvent(QKeyEvent *event)
 {
-    tansformCube();
+//    transformCube();
 }
 
 void MyOpenGLWidget::showEvent(QShowEvent *event)
@@ -194,14 +195,17 @@ void MyOpenGLWidget::initShader(const QString &fp1, const QString &fp2){
     }
 }
 
-void MyOpenGLWidget::tansformCube(){
+void MyOpenGLWidget::transformCube(QImage img){
+    double imgRatio = img.width() / img.height();
+}
+
+// previous transform for testing
 //    cube[0] -= 0.1f;
 
-    m_vbo.bind();
-    m_vbo.write(0, (void*)cube, sizeof(cube));
+//    m_vbo.bind();
+//    m_vbo.write(0, (void*)cube, sizeof(cube));
 
-    m_program->enableAttributeArray(attributePos);
-    m_program->setAttributeBuffer(attributePos, GL_FLOAT, 0, 4, 10*sizeof(GLfloat) );
-    m_vbo.release();
-    update();
-}
+//    m_program->enableAttributeArray(attributePos);
+//    m_program->setAttributeBuffer(attributePos, GL_FLOAT, 0, 4, 10*sizeof(GLfloat) );
+//    m_vbo.release();
+//    update();

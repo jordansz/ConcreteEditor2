@@ -31,7 +31,7 @@ protected:
     void showEvent(QShowEvent *event) override;
 
 private:
-    void tansformCube();
+    void transformCube(QImage img);
     void initTextures(QImage img1, QImage img2);
     void initShader(const QString &fp1, const QString &fp2);
 

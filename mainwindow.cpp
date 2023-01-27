@@ -11,14 +11,15 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
     , pointSelectorWidget(new PointSelectorWidget(this))
     , myOpenglWidget(new MyOpenGLWidget(this))
+    , widgetTemp(this)
 {
     ui->setupUi(this);
-    QWidget widget(this);
-    ui->stackedWidget->addWidget(&widget);
+//    QWidget widget(this);
+//    ui->stackedWidget->addWidget(&widget);
     pointSelectorWidget->setFocusPolicy(Qt::StrongFocus);       // needed for backspace cropping selection
     ui->stackedWidget->addWidget(pointSelectorWidget);
     ui->stackedWidget->addWidget(myOpenglWidget);
-    ui->stackedWidget->setCurrentIndex(ui->stackedWidget->indexOf(&widget));
+    ui->stackedWidget->setCurrentIndex(ui->stackedWidget->indexOf(&widgetTemp));
 }
 
 MainWindow::~MainWindow()
@@ -43,10 +44,17 @@ void MainWindow::recieveTutorialDialogSize(QSize newSize, QPoint newPos)
 
 void MainWindow::initMyOpenglWidget(QImage img)
 {
+    ui->stackedWidget->setCurrentWidget(&widgetTemp);
+    ui->stackedWidget->removeWidget(myOpenglWidget);
+//    myOpenglWidget = NULL;
+    myOpenglWidget = new MyOpenGLWidget(this);
     qDebug() << "initializing opengl stuff";
 //    QImage newImg(":/Images/stackoverflow_Qt_dimmensios_question.png");
 //    myOpenglWidget->updateTexture(newImg);
     myOpenglWidget->updateTexture(img);
+
+    ui->stackedWidget->addWidget(myOpenglWidget);
+    qDebug() << ui->stackedWidget->indexOf(myOpenglWidget);
     ui->stackedWidget->setCurrentIndex(ui->stackedWidget->indexOf(myOpenglWidget));
 }
 
@@ -71,10 +79,10 @@ void MainWindow::on_selectPicBtn_clicked()
     // check if user picks an image
     if(!filename.isNull())
    {
-
         //create QImage variable
         QImage image;
         assert(image.load(filename));
+        ui->stackedWidget->removeWidget(pointSelectorWidget);
         pointSelectorWidget = NULL;
         delete pointSelectorWidget;
         pointSelectorWidget = new PointSelectorWidget(image, this);

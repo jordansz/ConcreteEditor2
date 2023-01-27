@@ -35,5 +35,6 @@ private:
     Ui::MainWindow *ui;
     PointSelectorWidget *pointSelectorWidget;
     MyOpenGLWidget *myOpenglWidget;
+    QWidget widgetTemp;
 };
 #endif // MAINWINDOW_H
