@@ -19,7 +19,8 @@ MainWindow::MainWindow(QWidget *parent)
     pointSelectorWidget->setFocusPolicy(Qt::StrongFocus);       // needed for backspace cropping selection
     ui->stackedWidget->addWidget(pointSelectorWidget);
     ui->stackedWidget->addWidget(myOpenglWidget);
-    ui->stackedWidget->setCurrentIndex(ui->stackedWidget->indexOf(&widgetTemp));
+//    ui->stackedWidget->setCurrentIndex(ui->stackedWidget->indexOf(&widgetTemp));
+    ui->stackedWidget->setCurrentIndex(ui->stackedWidget->indexOf(pointSelectorWidget));
 }
 
 MainWindow::~MainWindow()
@@ -46,11 +47,8 @@ void MainWindow::initMyOpenglWidget(QImage img)
 {
     ui->stackedWidget->setCurrentWidget(&widgetTemp);
     ui->stackedWidget->removeWidget(myOpenglWidget);
-//    myOpenglWidget = NULL;
     myOpenglWidget = new MyOpenGLWidget(this);
     qDebug() << "initializing opengl stuff";
-//    QImage newImg(":/Images/stackoverflow_Qt_dimmensios_question.png");
-//    myOpenglWidget->updateTexture(newImg);
     myOpenglWidget->restart();
     myOpenglWidget->updateTexture(img);
 

@@ -74,8 +74,8 @@ MyOpenGLWidget::~MyOpenGLWidget()
 
 void MyOpenGLWidget::updateTexture(QImage img)
 {
+    qDebug() << "Updating Texture and Square: ";
     transformSquare(img);
-    qDebug() << "changing texture: ";
     initTextures(img, img);
 
 }
@@ -142,7 +142,9 @@ void MyOpenGLWidget::paintGL(){
 
     m_program->setUniformValue("u_MVP", mvp);
 
-    glDrawElements(GL_TRIANGLES, sizeof(squareIndeces), GL_UNSIGNED_INT, (void*)squareIndeces);
+    int halfSize = (sizeof(squareIndeces) / sizeof(squareIndeces[0])) / 2;
+    glDrawElements(GL_TRIANGLES, halfSize, GL_UNSIGNED_INT, &squareIndeces[0]);
+    glDrawElements(GL_TRIANGLES, halfSize, GL_UNSIGNED_INT, &squareIndeces[halfSize]);
 
     m_vao.release();
     m_program->release();
@@ -154,19 +156,19 @@ void MyOpenGLWidget::resizeGL(int w, int h){
 }
 
 
-void MyOpenGLWidget::mousePressEvent(QMouseEvent *event){
-    qDebug() << "Point clicked: " << event->pos();
-}
+//void MyOpenGLWidget::mousePressEvent(QMouseEvent *event){
+//    qDebug() << "Point clicked: " << event->pos();
+//}
 
-void MyOpenGLWidget::keyPressEvent(QKeyEvent *event)
-{
-//    transformsquare();
-}
+//void MyOpenGLWidget::keyPressEvent(QKeyEvent *event)
+//{
+////    transformsquare();
+//}
 
-void MyOpenGLWidget::showEvent(QShowEvent *event)
-{
-    QOpenGLWidget::showEvent(event);
-}
+//void MyOpenGLWidget::showEvent(QShowEvent *event)
+//{
+//    QOpenGLWidget::showEvent(event);
+//}
 
 void MyOpenGLWidget::initTextures(QImage img1, QImage img2){
         m_texture1 = new QOpenGLTexture(img1);
@@ -216,17 +218,12 @@ void MyOpenGLWidget::transformSquare(QImage img){
     int size = (sizeof(square) / sizeof(square[0]));
     int index = ((imgWRatio >= 1) ? 1 : 0) + (size / 2);
     int increment = stride / sizeof(square[0]);
-//    qDebug() << square[45];
     for(; index < size; index += increment){
-        qDebug() << square[index];
         if(square[index] < 0)
             square[index] = -(abs(square[index]) * ratio);
         else
             square[index] *= ratio;
-        qDebug() << square[index];
     }
-//    qDebug() << square[45];
-//    square[0] = 0.0f;
 }
 
 // previous transform for testing
