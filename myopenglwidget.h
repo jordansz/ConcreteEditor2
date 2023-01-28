@@ -36,6 +36,12 @@ private:
     void initTextures(QImage img1, QImage img2);
     void initShader(const QString &fp1, const QString &fp2);
 
+public slots:
+    void hasTexturePicked();
+    void updateTilt(double num);
+    void updateWobble(double num);
+
+private:
     QOpenGLVertexArrayObject m_vao;
     QOpenGLBuffer m_vbo;
 
@@ -45,6 +51,7 @@ private:
     int attributeTextCoord;
     int attributeTextIndex;
     QOpenGLTexture *m_texture1;
+    bool hasTexture;
 //    QOpenGLTexture *m_texture2;
 //    double imgRatio;
 };

@@ -57,6 +57,8 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget *parent)
     format.setVersion(3, 3);
     format.setProfile(QSurfaceFormat::CoreProfile);
     setFormat(format);
+
+    hasTexture = false;
 }
 
 
@@ -122,7 +124,6 @@ void MyOpenGLWidget::initializeGL()
     m_vbo.release();
     m_program->release();
     m_vao.release();
-
 }
 
 
@@ -200,6 +201,21 @@ void MyOpenGLWidget::initShader(const QString &fp1, const QString &fp2){
         qDebug() << "Problem binding shader\n" << __FILE__;
         close();
     }
+}
+
+void MyOpenGLWidget::hasTexturePicked()
+{
+    hasTexture = true;
+}
+
+void MyOpenGLWidget::updateTilt(double num)
+{
+
+}
+
+void MyOpenGLWidget::updateWobble(double num)
+{
+
 }
 
 void MyOpenGLWidget::restart()

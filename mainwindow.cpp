@@ -14,6 +14,10 @@ MainWindow::MainWindow(QWidget *parent)
     , widgetTemp(this)
 {
     ui->setupUi(this);
+    ui->sizeSlider->setDisabled(1);
+    ui->tiltSlider->setDisabled(1);
+    ui->wobbleSlider->setDisabled(1);
+
 //    QWidget widget(this);
 //    ui->stackedWidget->addWidget(&widget);
     pointSelectorWidget->setFocusPolicy(Qt::StrongFocus);       // needed for backspace cropping selection
