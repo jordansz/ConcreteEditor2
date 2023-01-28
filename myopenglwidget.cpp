@@ -3,8 +3,9 @@
 #include <QSurfaceFormat>
 #include <QMatrix4x4>
 #include <QImage>
+#include <QtMath>
 
-GLfloat cube[] = {
+GLfloat square[] = {
 //Square1 pos                  textid   text Coord       color
     -2.79f, -2.79f, -2.0f, 1.0f,  1,       0.0f, 1.0f,      1.0f, 1.0f, 0.5f, 0.0f,
      2.79f, -2.79f, -2.0f, 1.0f,  1,       1.0f, 1.0f,      1.0f, 1.0f, 0.5f, 0.0f,
@@ -15,23 +16,42 @@ GLfloat cube[] = {
      2.0f, -2.0f, 0.0f, 1.0f,  0,       1.0f, 1.0f,      1.0f, 0.0f, 0.5f, 0.0f,       //bottom right
      2.0f,  2.0f, 0.0f, 1.0f,  0,       1.0f, 0.0f,      1.0f, 0.0f, 0.5f, 0.0f,       //top right
     -2.0f,  2.0f, 0.0f, 1.0f,  0,       0.0f, 0.0f,      1.0f, 0.0f, 0.5f, 0.0f,       //top left
+    };
 
+GLfloat squareBackup[] = {
+//Square1 pos                  textid   text Coord       color
+    -2.79f, -2.79f, -2.0f, 1.0f,  1,       0.0f, 1.0f,      1.0f, 1.0f, 0.5f, 0.0f,
+     2.79f, -2.79f, -2.0f, 1.0f,  1,       1.0f, 1.0f,      1.0f, 1.0f, 0.5f, 0.0f,
+     2.79f,  2.79f, -2.0f, 1.0f,  1,       1.0f, 0.0f,      1.0f, 1.0f, 0.5f, 0.0f,
+    -2.79f,  2.79f, -2.0f, 1.0f,  1,       0.0f, 0.0f,      1.0f, 1.0f, 0.5f, 0.0f,
 
+    -2.0f, -2.0f, 0.0f, 1.0f,  0,       0.0f, 1.0f,      1.0f, 0.0f, 0.5f, 0.0f,       //bottom left
+     2.0f, -2.0f, 0.0f, 1.0f,  0,       1.0f, 1.0f,      1.0f, 0.0f, 0.5f, 0.0f,       //bottom right
+     2.0f,  2.0f, 0.0f, 1.0f,  0,       1.0f, 0.0f,      1.0f, 0.0f, 0.5f, 0.0f,       //top right
+    -2.0f,  2.0f, 0.0f, 1.0f,  0,       0.0f, 0.0f,      1.0f, 0.0f, 0.5f, 0.0f,       //top left
     };
 
 int stride = 11 * sizeof(GLfloat);
 
-    GLuint cubeIndeces[] = {
-        0, 1, 2, 0, 3, 2,
-        4, 5, 6, 4, 7, 6,
-//        0, 1, 1, 2, 2, 3, 3, 0    //cube wire frame
-    };
+GLuint squareIndeces[] = {
+    0, 1, 2, 0, 3, 2,
+    4, 5, 6, 4, 7, 6,
+//        0, 1, 1, 2, 2, 3, 3, 0    //square wire frame
+};
 
+//GLfloat squareBackup[sizeof(square) / sizeof(square[0])];
+
+//void makeSquareBackupCopy(){
+//    for(int i = 0; i < sizeof(square) / sizeof(square[0]); i++){
+//        squareBackup[i] = square[i];
+//    }
+//}
 
 MyOpenGLWidget::MyOpenGLWidget(QWidget *parent)
     : QOpenGLWidget(parent)
     , m_program(new QOpenGLShaderProgram(nullptr))
 {
+//    makeSquareBackupCopy();
 //    set opengl version to #330
     QSurfaceFormat format;
     format.setVersion(3, 3);
@@ -54,7 +74,7 @@ MyOpenGLWidget::~MyOpenGLWidget()
 
 void MyOpenGLWidget::updateTexture(QImage img)
 {
-//    this->transformCube();
+    transformSquare(img);
     qDebug() << "changing texture: ";
     initTextures(img, img);
 
@@ -76,17 +96,9 @@ void MyOpenGLWidget::initializeGL()
     m_vbo.create();
     m_vbo.bind();
     m_vbo.setUsagePattern(QOpenGLBuffer::DynamicDraw);
-    m_vbo.allocate((void*)cube, sizeof(cube));
-
-//    QImage img1(":/Images/homeButton.png");
-//    QImage img2(":/Images/homeButton.png");
-//    if(img1.isNull() || img2.isNull()){
-//        qDebug() << "Error loading images." << __FILE__;
-//    }
+    m_vbo.allocate((void*)square, sizeof(square));
 
     initShader(":/Shaders/default.vert", ":/Shaders/default.frag");
-//    qDebug() << "before initing";
-//    initTextures(img1, img2);
 
     attributePos = m_program->attributeLocation("position");
     m_program->enableAttributeArray(attributePos);
@@ -130,7 +142,7 @@ void MyOpenGLWidget::paintGL(){
 
     m_program->setUniformValue("u_MVP", mvp);
 
-    glDrawElements(GL_TRIANGLES, sizeof(cubeIndeces), GL_UNSIGNED_INT, (void*)cubeIndeces);
+    glDrawElements(GL_TRIANGLES, sizeof(squareIndeces), GL_UNSIGNED_INT, (void*)squareIndeces);
 
     m_vao.release();
     m_program->release();
@@ -139,13 +151,6 @@ void MyOpenGLWidget::paintGL(){
 
 void MyOpenGLWidget::resizeGL(int w, int h){
     glViewport(0, 0, (GLsizei)w, (GLsizei)h);
-    QSize size(w, h);
-    QSize imgSize(1, 1);
-//    qDebug() << "Viewport: " << size << "   Widget: " << this->size() << " Image: " << imgSize;
-//    qDebug() << "w: " << w << "h: " << h;
-//    if(w >= h){
-
-//    }
 }
 
 
@@ -155,7 +160,7 @@ void MyOpenGLWidget::mousePressEvent(QMouseEvent *event){
 
 void MyOpenGLWidget::keyPressEvent(QKeyEvent *event)
 {
-//    transformCube();
+//    transformsquare();
 }
 
 void MyOpenGLWidget::showEvent(QShowEvent *event)
@@ -195,15 +200,40 @@ void MyOpenGLWidget::initShader(const QString &fp1, const QString &fp2){
     }
 }
 
-void MyOpenGLWidget::transformCube(QImage img){
-    double imgRatio = img.width() / img.height();
+void MyOpenGLWidget::restart()
+{
+    qDebug() << "Reseting Opengl Widget";
+    for(int i = 0; i < sizeof(square) / sizeof(square[0]); i++){
+        square[i] = squareBackup[i];
+    }
+}
+
+void MyOpenGLWidget::transformSquare(QImage img){
+    qDebug() << "herereere";
+    double imgWRatio = img.width() / (double)img.height();
+    double imgHRatio = img.height() / (double)img.width();
+    double ratio = qMin(imgHRatio, imgWRatio);
+    int size = (sizeof(square) / sizeof(square[0]));
+    int index = ((imgWRatio >= 1) ? 1 : 0) + (size / 2);
+    int increment = stride / sizeof(square[0]);
+//    qDebug() << square[45];
+    for(; index < size; index += increment){
+        qDebug() << square[index];
+        if(square[index] < 0)
+            square[index] = -(abs(square[index]) * ratio);
+        else
+            square[index] *= ratio;
+        qDebug() << square[index];
+    }
+//    qDebug() << square[45];
+//    square[0] = 0.0f;
 }
 
 // previous transform for testing
-//    cube[0] -= 0.1f;
+//    square[0] -= 0.1f;
 
 //    m_vbo.bind();
-//    m_vbo.write(0, (void*)cube, sizeof(cube));
+//    m_vbo.write(0, (void*)square, sizeof(square));
 
 //    m_program->enableAttributeArray(attributePos);
 //    m_program->setAttributeBuffer(attributePos, GL_FLOAT, 0, 4, 10*sizeof(GLfloat) );

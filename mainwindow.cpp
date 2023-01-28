@@ -51,6 +51,7 @@ void MainWindow::initMyOpenglWidget(QImage img)
     qDebug() << "initializing opengl stuff";
 //    QImage newImg(":/Images/stackoverflow_Qt_dimmensios_question.png");
 //    myOpenglWidget->updateTexture(newImg);
+    myOpenglWidget->restart();
     myOpenglWidget->updateTexture(img);
 
     ui->stackedWidget->addWidget(myOpenglWidget);
@@ -82,6 +83,7 @@ void MainWindow::on_selectPicBtn_clicked()
         //create QImage variable
         QImage image;
         assert(image.load(filename));
+//        ui->stackedWidget->setCurrentWidget(&widgetTemp);
         ui->stackedWidget->removeWidget(pointSelectorWidget);
         pointSelectorWidget = NULL;
         delete pointSelectorWidget;

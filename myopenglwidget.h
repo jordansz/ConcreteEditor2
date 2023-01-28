@@ -21,6 +21,7 @@ public:
     MyOpenGLWidget(QWidget *parent = nullptr);
     ~MyOpenGLWidget();
     void updateTexture(QImage img);
+    void restart();
 
 protected:
     void initializeGL() override;
@@ -31,10 +32,9 @@ protected:
     void showEvent(QShowEvent *event) override;
 
 private:
-    void transformCube(QImage img);
+    void transformSquare(QImage img);
     void initTextures(QImage img1, QImage img2);
     void initShader(const QString &fp1, const QString &fp2);
-
 
     QOpenGLVertexArrayObject m_vao;
     QOpenGLBuffer m_vbo;
