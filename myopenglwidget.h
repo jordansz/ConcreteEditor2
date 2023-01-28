@@ -41,6 +41,9 @@ public slots:
     void updateTilt(double num);
     void updateWobble(double num);
 
+//signals:
+//    void
+
 private:
     QOpenGLVertexArrayObject m_vao;
     QOpenGLBuffer m_vbo;

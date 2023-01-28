@@ -85,7 +85,7 @@ void MainWindow::on_selectPicBtn_clicked()
         //create QImage variable
         QImage image;
         assert(image.load(filename));
-//        ui->stackedWidget->setCurrentWidget(&widgetTemp);
+        ui->stackedWidget->setCurrentWidget(&widgetTemp);
         ui->stackedWidget->removeWidget(pointSelectorWidget);
         pointSelectorWidget = NULL;
         delete pointSelectorWidget;
