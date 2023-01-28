@@ -118,7 +118,13 @@ void MyOpenGLWidget::initializeGL()
     m_program->enableAttributeArray(attributeColor);
     m_program->setAttributeBuffer(attributeColor, GL_FLOAT, 7 * sizeof(GLfloat), 4, stride);
 
-    m_program->setUniformValue("u_Texture", 0);
+//    m_program->setUniformValue("u_Texture", 0);
+//    GLfloat backSquareMaxW = qAbs(qTan(22.5f) * (5 + qAbs(square[0])));
+//    GLfloat backSquareMaxH = qAbs(qTan(22.5f) * (5 + qAbs(square[1])));
+    qDebug() << "xmax: " << square[0] << "xval here: " << square[0] << "  ymax" << square[1];
+
+    m_program->setUniformValue("maxSquareWidth", qAbs(square[0]));
+    m_program->setUniformValue("maxSquareHeight", qAbs(square[1]));
 
     m_texture1->release();
     m_vbo.release();
@@ -142,6 +148,7 @@ void MyOpenGLWidget::paintGL(){
     QMatrix4x4 mvp = projection * view * model;
 
     m_program->setUniformValue("u_MVP", mvp);
+    m_program->setUniformValue("u_Texture", 0);
 
     int halfSize = (sizeof(squareIndeces) / sizeof(squareIndeces[0])) / 2;
     glDrawElements(GL_TRIANGLES, halfSize, GL_UNSIGNED_INT, &squareIndeces[0]);
@@ -227,7 +234,6 @@ void MyOpenGLWidget::restart()
 }
 
 void MyOpenGLWidget::transformSquare(QImage img){
-    qDebug() << "herereere";
     double imgWRatio = img.width() / (double)img.height();
     double imgHRatio = img.height() / (double)img.width();
     double ratio = qMin(imgHRatio, imgWRatio);
@@ -235,10 +241,14 @@ void MyOpenGLWidget::transformSquare(QImage img){
     int index = ((imgWRatio >= 1) ? 1 : 0) + (size / 2);
     int increment = stride / sizeof(square[0]);
     for(; index < size; index += increment){
-        if(square[index] < 0)
+        if(square[index] < 0){
             square[index] = -(abs(square[index]) * ratio);
-        else
+            square[index - 44] = -(abs(square[index - 44]) * ratio);
+        }
+        else{
             square[index] *= ratio;
+            square[index - 44] *= ratio;
+        }
     }
 }
 
