@@ -19,8 +19,8 @@ MainWindow::MainWindow(QWidget *parent)
     pointSelectorWidget->setFocusPolicy(Qt::StrongFocus);       // needed for backspace cropping selection
     ui->stackedWidget->addWidget(pointSelectorWidget);
     ui->stackedWidget->addWidget(myOpenglWidget);
-//    ui->stackedWidget->setCurrentIndex(ui->stackedWidget->indexOf(&widgetTemp));
-    ui->stackedWidget->setCurrentIndex(ui->stackedWidget->indexOf(pointSelectorWidget));
+    ui->stackedWidget->setCurrentIndex(ui->stackedWidget->indexOf(&widgetTemp));
+//    ui->stackedWidget->setCurrentIndex(ui->stackedWidget->indexOf(pointSelectorWidget));
 }
 
 MainWindow::~MainWindow()
