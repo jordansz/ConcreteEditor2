@@ -64,6 +64,7 @@ void MainWindow::initMyOpenglWidget(QImage img)
 
 void MainWindow::on_restartBtn_clicked()
 {
+    disableSliders();
     pointSelectorWidget->restart();
     ui->stackedWidget->setCurrentIndex(ui->stackedWidget->indexOf(pointSelectorWidget));
 }
@@ -77,6 +78,7 @@ void MainWindow::on_undoBtn_clicked()
 
 void MainWindow::on_selectPicBtn_clicked()
 {
+    disableSliders();
     QString filename = QFileDialog::getOpenFileName(this, tr("Select Image"), "", tr("Images (*png *jpg)"));  //"Images (... part is allowables photo types... opens
     qDebug() << filename;
     // check if user picks an image
@@ -99,5 +101,19 @@ void MainWindow::on_selectPicBtn_clicked()
     else{
         QMessageBox::warning(this, "Selecting Image error", "No image was selected or an unkown Error occured");
     }
+}
+
+void MainWindow::enableSliders()
+{
+    ui->sizeSlider->setEnabled(true);
+    ui->tiltSlider->setEnabled(true);
+    ui->wobbleSlider->setEnabled(true);
+}
+
+void MainWindow::disableSliders()
+{
+    ui->sizeSlider->setDisabled(true);
+    ui->tiltSlider->setDisabled(true);
+    ui->wobbleSlider->setDisabled(true);
 }
 

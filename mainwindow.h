@@ -17,19 +17,20 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+        void disableSliders();
 
 private slots:
     void on_tutorialBtn_clicked();
-
     void on_restartBtn_clicked();
-
     void on_undoBtn_clicked();
-
     void on_selectPicBtn_clicked();
 
 public slots:
     void recieveTutorialDialogSize(QSize newSize, QPoint newPos);
     void initMyOpenglWidget(QImage img);
+    void enableSliders();
+
+
 
 private:
     Ui::MainWindow *ui;

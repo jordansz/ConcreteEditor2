@@ -57,8 +57,8 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget *parent)
     format.setVersion(3, 3);
     format.setProfile(QSurfaceFormat::CoreProfile);
     setFormat(format);
-
     hasTexture = false;
+    connect(this, SIGNAL(enableSliders()), parent, SLOT(enableSliders()));
 }
 
 
@@ -84,6 +84,7 @@ void MyOpenGLWidget::updateTexture(QImage img)
 
 void MyOpenGLWidget::initializeGL()
 {
+    emit enableSliders();
     initializeOpenGLFunctions();
     glClearColor(0.9f, 0.8f, 0.8f, 0.0f);
 //    glClearColor(1.0f, 1.0f, 1.0f, 0.5f);
