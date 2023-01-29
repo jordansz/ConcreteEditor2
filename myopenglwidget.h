@@ -55,6 +55,9 @@ private:
     int attributeTextIndex;
     QOpenGLTexture *m_texture1;
     bool hasTexture;
+    double xRot;
+    double yRot;
+    double zRot;
 //    QOpenGLTexture *m_texture2;
 //    double imgRatio;
 };

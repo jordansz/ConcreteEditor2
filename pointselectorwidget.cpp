@@ -6,11 +6,8 @@
 PointSelectorWidget::PointSelectorWidget(QWidget *parent)
     : QWidget{parent}
 {
-    qDebug() << "initalizing!!!";
     setParent(parent);
 //    setImage(":/Images/homeButton.png");
-//    setImage(":/Images/stackoverflow_Qt_dimmensios_question.png");
-//    this->adjustSize();
     editImage = false;
     connect(this, SIGNAL(sendImg(QImage)), parent, SLOT(initMyOpenglWidget(QImage)));
 }
@@ -26,7 +23,7 @@ PointSelectorWidget::PointSelectorWidget(QImage img, QWidget *parent)
 }
 
 PointSelectorWidget::~PointSelectorWidget(){
-
+    qDebug() << "Destroying opengl widget\n\n\n";
 }
 
 void PointSelectorWidget::setImage(const QString fp)
@@ -111,7 +108,7 @@ void PointSelectorWidget::paintEvent(QPaintEvent *event)
 
 
         QRectF imgRec(0, 0, image.width(), image.height());
-        qDebug() << xOffset;
+//        qDebug() << xOffset;
         painter.drawImage(imgRec, image);
         painter.end();
         emit sendImg(output);
@@ -126,7 +123,7 @@ void PointSelectorWidget::mousePressEvent(QMouseEvent *event)
     if(image.isNull()){
         return;
     }
-    qDebug() << event->pos();
+//    qDebug() << event->pos();
     // Image is not ready to be cropped, continue checking new points close it
     if(!editImage){
         pointsHandler.addPoint(event->pos());
