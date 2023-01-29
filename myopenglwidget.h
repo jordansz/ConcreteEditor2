@@ -30,7 +30,7 @@ protected:
 
 private:
     void transformSquare(QImage img);
-    void initTextures(QImage img1, QImage img2);
+    void initTexture(QImage img1, QOpenGLTexture *&texture);
     void initShader(const QString &fp1, const QString &fp2);
 
 public slots:

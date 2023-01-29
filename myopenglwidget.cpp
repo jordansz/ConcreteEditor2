@@ -80,7 +80,7 @@ void MyOpenGLWidget::updateTexture(QImage img)
 {
     qDebug() << "Updating Texture and Square: ";
     transformSquare(img);
-    initTextures(img, img);
+    initTexture(img, m_texture1);
 
 }
 
@@ -166,11 +166,11 @@ void MyOpenGLWidget::resizeGL(int w, int h){
 }
 
 
-void MyOpenGLWidget::initTextures(QImage img1, QImage img2){
-        m_texture1 = new QOpenGLTexture(img1);
-        m_texture1->setMinificationFilter(QOpenGLTexture::Nearest);
-        m_texture1->setMagnificationFilter(QOpenGLTexture::Linear);
-        m_texture1->setWrapMode(QOpenGLTexture::Repeat);
+void MyOpenGLWidget::initTexture(QImage img1, QOpenGLTexture *&texture){
+        texture = new QOpenGLTexture(img1);
+        texture->setMinificationFilter(QOpenGLTexture::Nearest);
+        texture->setMagnificationFilter(QOpenGLTexture::Linear);
+        texture->setWrapMode(QOpenGLTexture::Repeat);
 }
 
 void MyOpenGLWidget::initShader(const QString &fp1, const QString &fp2){
