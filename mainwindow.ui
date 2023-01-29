@@ -129,11 +129,14 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="minimum">
+             <number>-1000</number>
+            </property>
             <property name="maximum">
-             <number>100</number>
+             <number>1000</number>
             </property>
             <property name="value">
-             <number>50</number>
+             <number>0</number>
             </property>
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
@@ -143,10 +146,10 @@
           <item row="1" column="1">
            <widget class="QSlider" name="wobbleSlider">
             <property name="minimum">
-             <number>-100</number>
+             <number>-1000</number>
             </property>
             <property name="maximum">
-             <number>100</number>
+             <number>1000</number>
             </property>
             <property name="orientation">
              <enum>Qt::Horizontal</enum>

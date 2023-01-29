@@ -24,15 +24,21 @@ private slots:
     void on_restartBtn_clicked();
     void on_undoBtn_clicked();
     void on_selectPicBtn_clicked();
+    void on_tiltSlider_valueChanged(int value);
+    void on_wobbleSlider_valueChanged(int value);
+    void on_sizeSlider_valueChanged(int value);
 
 public slots:
     void recieveTutorialDialogSize(QSize newSize, QPoint newPos);
     void initMyOpenglWidget(QImage img);
     void enableSliders();
 
-
+signals:
+    void slidersChanged(QVector3D vec);
 
 private:
+    QVector3D getSliderVals();
+
     Ui::MainWindow *ui;
     PointSelectorWidget *pointSelectorWidget;
     MyOpenGLWidget *myOpenglWidget;

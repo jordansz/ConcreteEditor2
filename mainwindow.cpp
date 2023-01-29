@@ -55,7 +55,7 @@ void MainWindow::initMyOpenglWidget(QImage img)
     qDebug() << "initializing opengl stuff";
     myOpenglWidget->restart();
     myOpenglWidget->updateTexture(img);
-
+    connect(this, SIGNAL(slidersChanged(QVector3D)), myOpenglWidget, SLOT(updateRotation(QVector3D)));
     ui->stackedWidget->addWidget(myOpenglWidget);
     qDebug() << ui->stackedWidget->indexOf(myOpenglWidget);
     ui->stackedWidget->setCurrentIndex(ui->stackedWidget->indexOf(myOpenglWidget));
@@ -64,6 +64,9 @@ void MainWindow::initMyOpenglWidget(QImage img)
 
 void MainWindow::on_restartBtn_clicked()
 {
+    ui->tiltSlider->setValue((ui->tiltSlider->maximum() + ui->tiltSlider->minimum()) / 2);
+    ui->wobbleSlider->setValue((ui->wobbleSlider->maximum() + ui->wobbleSlider->minimum()) / 2);
+    ui->sizeSlider->setValue((ui->sizeSlider->maximum() + ui->sizeSlider->minimum()) / 2);
     disableSliders();
     pointSelectorWidget->restart();
     ui->stackedWidget->setCurrentIndex(ui->stackedWidget->indexOf(pointSelectorWidget));
@@ -110,10 +113,36 @@ void MainWindow::enableSliders()
     ui->wobbleSlider->setEnabled(true);
 }
 
+QVector3D MainWindow::getSliderVals()
+{
+    GLfloat x = ui->wobbleSlider->value();
+    GLfloat y = ui->tiltSlider->value();
+    GLfloat z = 0.0f;
+    return QVector3D(x, y, z);
+}
+
 void MainWindow::disableSliders()
 {
     ui->sizeSlider->setDisabled(true);
     ui->tiltSlider->setDisabled(true);
     ui->wobbleSlider->setDisabled(true);
+}
+
+
+void MainWindow::on_tiltSlider_valueChanged(int value)
+{
+    emit slidersChanged(getSliderVals());
+}
+
+
+void MainWindow::on_wobbleSlider_valueChanged(int value)
+{
+    emit slidersChanged(getSliderVals());
+}
+
+
+void MainWindow::on_sizeSlider_valueChanged(int value)
+{
+    emit slidersChanged(getSliderVals());
 }
 

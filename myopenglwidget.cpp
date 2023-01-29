@@ -1,10 +1,11 @@
 #include "myopenglwidget.h"
 #include <QDebug>
 #include <QSurfaceFormat>
-#include <QMatrix4x4>
 #include <QImage>
 #include <QtMath>
 
+
+// These values are for front square w/ length of 4, back square is at -2 z!
 GLfloat square[] = {
 //Square1 pos                  textid   text Coord       color
     -2.79f, -2.79f, -2.0f, 1.0f,  1,       0.0f, 1.0f,      1.0f, 1.0f, 0.5f, 0.0f,
@@ -51,13 +52,14 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget *parent)
     : QOpenGLWidget(parent)
     , m_program(new QOpenGLShaderProgram(nullptr))
 {
+    rotationVec = QVector3D(0.0f, 0.0f, 0.0f);
 //    makeSquareBackupCopy();
 //    set opengl version to #330
     QSurfaceFormat format;
     format.setVersion(3, 3);
     format.setProfile(QSurfaceFormat::CoreProfile);
     setFormat(format);
-    hasTexture = false;
+//    hasTexture = false;
     connect(this, SIGNAL(enableSliders()), parent, SLOT(enableSliders()));
 }
 
@@ -136,7 +138,6 @@ void MyOpenGLWidget::initializeGL()
 
 void MyOpenGLWidget::paintGL(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
     m_program->bind();
     m_vao.bind();
     m_texture1->bind();
@@ -144,7 +145,6 @@ void MyOpenGLWidget::paintGL(){
     QMatrix4x4 model;
     QMatrix4x4 view;
     view.lookAt(QVector3D(0.0f, 0.0f, 5.0f), QVector3D(0.0f, 0.0f, 0.0f), QVector3D(0.0f, 1.0f, 0.0f));
-    view.rotate(30, QVector3D(0.0f, 0.0f, 1.0f));
     QMatrix4x4 projection;
     projection.perspective(45.0f, width() / float(height()), 0.01f, 200.0f);
     QMatrix4x4 mvp = projection * view * model;
@@ -165,20 +165,6 @@ void MyOpenGLWidget::resizeGL(int w, int h){
     glViewport(0, 0, (GLsizei)w, (GLsizei)h);
 }
 
-
-//void MyOpenGLWidget::mousePressEvent(QMouseEvent *event){
-//    qDebug() << "Point clicked: " << event->pos();
-//}
-
-//void MyOpenGLWidget::keyPressEvent(QKeyEvent *event)
-//{
-////    transformsquare();
-//}
-
-//void MyOpenGLWidget::showEvent(QShowEvent *event)
-//{
-//    QOpenGLWidget::showEvent(event);
-//}
 
 void MyOpenGLWidget::initTextures(QImage img1, QImage img2){
         m_texture1 = new QOpenGLTexture(img1);
@@ -212,20 +198,17 @@ void MyOpenGLWidget::initShader(const QString &fp1, const QString &fp2){
     }
 }
 
-void MyOpenGLWidget::hasTexturePicked()
+void MyOpenGLWidget::updateRotation(QVector3D vec)
 {
-    hasTexture = true;
+    rotationVec = vec;
+    update();
 }
 
-void MyOpenGLWidget::updateTilt(double num)
-{
+//void MyOpenGLWidget::hasTexturePicked()
+//{
+//    hasTexture = true;
+//}
 
-}
-
-void MyOpenGLWidget::updateWobble(double num)
-{
-
-}
 
 void MyOpenGLWidget::restart()
 {

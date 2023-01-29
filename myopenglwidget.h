@@ -10,7 +10,7 @@
 #include <QOpenGLShader>
 #include <QImage>
 #include <QShowEvent>
-
+#include <QMatrix4x4>
 #include <QMouseEvent>
 #include <QKeyEvent>
 
@@ -27,9 +27,6 @@ protected:
     void initializeGL() override;
     void paintGL() override;
     void resizeGL(int w, int h) override;
-//    void mousePressEvent(QMouseEvent *event) override;
-//    void keyPressEvent(QKeyEvent *event) override;
-//    void showEvent(QShowEvent *event) override;
 
 private:
     void transformSquare(QImage img);
@@ -37,9 +34,8 @@ private:
     void initShader(const QString &fp1, const QString &fp2);
 
 public slots:
-    void hasTexturePicked();
-    void updateTilt(double num);
-    void updateWobble(double num);
+//    void hasTexturePicked();
+    void updateRotation(QVector3D vec);
 
 signals:
     void enableSliders();
@@ -54,7 +50,8 @@ private:
     int attributeTextCoord;
     int attributeTextIndex;
     QOpenGLTexture *m_texture1;
-    bool hasTexture;
+    QVector3D rotationVec;
+//    bool hasTexture;
     double xRot;
     double yRot;
     double zRot;
