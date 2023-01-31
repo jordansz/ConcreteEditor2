@@ -190,9 +190,9 @@
            </widget>
           </item>
           <item row="3" column="0">
-           <widget class="QPushButton" name="SelectBtn">
+           <widget class="QPushButton" name="resetSlidersBtn">
             <property name="text">
-             <string>Select</string>
+             <string>Reset Sliders</string>
             </property>
            </widget>
           </item>

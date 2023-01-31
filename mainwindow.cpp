@@ -64,9 +64,7 @@ void MainWindow::initMyOpenglWidget(QImage img)
 
 void MainWindow::on_restartBtn_clicked()
 {
-    ui->tiltSlider->setValue((ui->tiltSlider->maximum() + ui->tiltSlider->minimum()) / 2);
-    ui->wobbleSlider->setValue((ui->wobbleSlider->maximum() + ui->wobbleSlider->minimum()) / 2);
-    ui->sizeSlider->setValue((ui->sizeSlider->maximum() + ui->sizeSlider->minimum()) / 2);
+    resetSliders();
     disableSliders();
     pointSelectorWidget->restart();
     ui->stackedWidget->setCurrentIndex(ui->stackedWidget->indexOf(pointSelectorWidget));
@@ -121,6 +119,13 @@ QVector3D MainWindow::getSliderVals()
     return QVector3D(x, y, z);
 }
 
+void MainWindow::resetSliders()
+{
+    ui->tiltSlider->setValue((ui->tiltSlider->maximum() + ui->tiltSlider->minimum()) / 2);
+    ui->wobbleSlider->setValue((ui->wobbleSlider->maximum() + ui->wobbleSlider->minimum()) / 2);
+    ui->sizeSlider->setValue((ui->sizeSlider->maximum() + ui->sizeSlider->minimum()) / 2);
+}
+
 void MainWindow::disableSliders()
 {
     ui->sizeSlider->setDisabled(true);
@@ -144,5 +149,11 @@ void MainWindow::on_wobbleSlider_valueChanged(int value)
 void MainWindow::on_sizeSlider_valueChanged(int value)
 {
     emit slidersChanged(getSliderVals());
+}
+
+
+void MainWindow::on_resetSlidersBtn_clicked()
+{
+    resetSliders();
 }
 

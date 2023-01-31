@@ -27,6 +27,7 @@ private slots:
     void on_tiltSlider_valueChanged(int value);
     void on_wobbleSlider_valueChanged(int value);
     void on_sizeSlider_valueChanged(int value);
+    void on_resetSlidersBtn_clicked();
 
 public slots:
     void recieveTutorialDialogSize(QSize newSize, QPoint newPos);
@@ -38,6 +39,7 @@ signals:
 
 private:
     QVector3D getSliderVals();
+    void resetSliders();
 
     Ui::MainWindow *ui;
     PointSelectorWidget *pointSelectorWidget;
