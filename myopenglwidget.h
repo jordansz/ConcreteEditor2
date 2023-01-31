@@ -50,6 +50,7 @@ private:
     int attributeTextCoord;
     int attributeTextIndex;
     QOpenGLTexture *m_texture1;
+    double prev;
     QVector3D rotationVec;
 //    bool hasTexture;
     double xRot;

@@ -52,6 +52,7 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget *parent)
     : QOpenGLWidget(parent)
     , m_program(new QOpenGLShaderProgram(nullptr))
 {
+    prev = 0;
     rotationVec = QVector3D(0.0f, 0.0f, 0.0f);
 //    makeSquareBackupCopy();
 //    set opengl version to #330
@@ -143,6 +144,9 @@ void MyOpenGLWidget::paintGL(){
     m_texture1->bind();
 
     QMatrix4x4 model;
+    model.rotate(rotationVec.x(), QVector3D(1, 0, 0));
+    model.rotate(rotationVec.y(), QVector3D(0, 1, 0));
+    qDebug() << model;
     QMatrix4x4 view;
     view.lookAt(QVector3D(0.0f, 0.0f, 5.0f), QVector3D(0.0f, 0.0f, 0.0f), QVector3D(0.0f, 1.0f, 0.0f));
     QMatrix4x4 projection;
@@ -200,6 +204,8 @@ void MyOpenGLWidget::initShader(const QString &fp1, const QString &fp2){
 
 void MyOpenGLWidget::updateRotation(QVector3D vec)
 {
+    prev += vec.x();
+//    vec.x = prev;
     rotationVec = vec;
     update();
 }
