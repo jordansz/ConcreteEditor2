@@ -161,6 +161,9 @@ void MainWindow::on_resetSlidersBtn_clicked()
 
 void MainWindow::on_chooseTxtreBtn_clicked()
 {
-
+    //I Should make this a seperate dialog window to show off the textures.  Kind of photo gallery widget
+//    QFile file(":/Textures");
+    QString filename = QFileDialog::getOpenFileName(this, tr("Select Texture"), ":/Textures", tr("Images (*png *jpg)"));  //"Images (... part is allowables photo types... opens
+//    qDebug() << filename;
 }
 
