@@ -146,7 +146,7 @@ void MyOpenGLWidget::paintGL(){
     QMatrix4x4 model;
     model.rotate(rotationVec.x(), QVector3D(1, 0, 0));
     model.rotate(rotationVec.y(), QVector3D(0, 1, 0));
-    qDebug() << model;
+
     QMatrix4x4 view;
     view.lookAt(QVector3D(0.0f, 0.0f, 5.0f), QVector3D(0.0f, 0.0f, 0.0f), QVector3D(0.0f, 1.0f, 0.0f));
     QMatrix4x4 projection;

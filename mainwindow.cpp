@@ -79,12 +79,13 @@ void MainWindow::on_undoBtn_clicked()
 
 void MainWindow::on_selectPicBtn_clicked()
 {
-    disableSliders();
     QString filename = QFileDialog::getOpenFileName(this, tr("Select Image"), "", tr("Images (*png *jpg)"));  //"Images (... part is allowables photo types... opens
     qDebug() << filename;
     // check if user picks an image
     if(!filename.isNull())
    {
+        resetSliders();
+        disableSliders();
         //create QImage variable
         QImage image;
         assert(image.load(filename));
@@ -134,19 +135,19 @@ void MainWindow::disableSliders()
 }
 
 
-void MainWindow::on_tiltSlider_valueChanged(int value)
+void MainWindow::on_tiltSlider_valueChanged()
 {
     emit slidersChanged(getSliderVals());
 }
 
 
-void MainWindow::on_wobbleSlider_valueChanged(int value)
+void MainWindow::on_wobbleSlider_valueChanged()
 {
     emit slidersChanged(getSliderVals());
 }
 
 
-void MainWindow::on_sizeSlider_valueChanged(int value)
+void MainWindow::on_sizeSlider_valueChanged()
 {
     emit slidersChanged(getSliderVals());
 }
@@ -155,5 +156,11 @@ void MainWindow::on_sizeSlider_valueChanged(int value)
 void MainWindow::on_resetSlidersBtn_clicked()
 {
     resetSliders();
+}
+
+
+void MainWindow::on_chooseTxtreBtn_clicked()
+{
+
 }
 
