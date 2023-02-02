@@ -35,6 +35,7 @@ public slots:
     void recieveTutorialDialogSize(QSize newSize, QPoint newPos);
     void initMyOpenglWidget(QImage img);
     void enableSliders();
+    void displaySelectedBackImg();
 
 signals:
     void slidersChanged(QVector3D vec);

@@ -87,10 +87,8 @@ void MainWindow::on_selectPicBtn_clicked()
         assert(image.load(filename));
         ui->stackedWidget->setCurrentIndex(ui->stackedWidget->indexOf(&widgetTemp));
         if(pointSelectorWidget != nullptr){
-            qDebug() << "Deleting previous pointSelectorWidget\n" << pointSelectorWidget->initialized;
             ui->stackedWidget->removeWidget(pointSelectorWidget);
             delete pointSelectorWidget;
-
         }
         pointSelectorWidget = new PointSelectorWidget(image, this);
         pointSelectorWidget->setFocusPolicy(Qt::StrongFocus);       // needed for backspace cropping selection
@@ -107,6 +105,14 @@ void MainWindow::enableSliders()
     ui->sizeSlider->setEnabled(true);
     ui->tiltSlider->setEnabled(true);
     ui->wobbleSlider->setEnabled(true);
+}
+
+void MainWindow::displaySelectedBackImg()
+{
+    if(selectedTextureImg != nullptr){
+        connect(this, SIGNAL(userSelectedTexture(QImage)), myOpenglWidget, SLOT(updateBackTexture(QImage)));
+        emit userSelectedTexture(*selectedTextureImg);
+    }
 }
 
 QVector3D MainWindow::getSliderVals()

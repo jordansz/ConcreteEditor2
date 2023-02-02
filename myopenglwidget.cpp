@@ -67,6 +67,7 @@ MyOpenGLWidget::MyOpenGLWidget(QImage img, QWidget *parent)
     setFormat(format);
 
     connect(this, SIGNAL(enableSliders()), parent, SLOT(enableSliders()));
+    connect(this, SIGNAL(readyForBackTexture()), parent, SLOT(displaySelectedBackImg()));
 }
 
 
@@ -137,13 +138,14 @@ void MyOpenGLWidget::initializeGL()
     m_program->release();
     m_vao.release();
     initialized = true;
+
+    emit(readyForBackTexture());
 }
 
 void MyOpenGLWidget::updateTexture(QImage img, QOpenGLTexture *&texture)
 {
     qDebug() << "Updating Texture and Square";
     if(texture == nullptr && initialized == false){
-        qDebug() << "Updating square for new front image";
         transformSquare(img);
     }
     initTexture(img, texture);
@@ -177,6 +179,7 @@ void MyOpenGLWidget::paintGL(){
         m_texture2->bind();
     }
     glDrawElements(GL_TRIANGLES, halfSize, GL_UNSIGNED_INT, &squareIndeces[0]);
+
 
     m_texture1->bind();
     glDrawElements(GL_TRIANGLES, halfSize, GL_UNSIGNED_INT, &squareIndeces[halfSize]);

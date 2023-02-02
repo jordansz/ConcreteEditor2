@@ -40,6 +40,7 @@ public slots:
 
 signals:
     void enableSliders();
+    void readyForBackTexture();
 
 private:
     QOpenGLVertexArrayObject m_vao;
