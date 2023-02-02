@@ -8,10 +8,10 @@
 // These values are for front square w/ length of 4, back square i
 GLfloat square[] = {
 //Square1 pos                  textid   text Coord       color
-    -2.79f, -2.79f, -2.0f, 1.0f,  1,       0.0f, 1.0f,      1.0f, 1.0f, 0.5f, 0.0f,
-     2.79f, -2.79f, -2.0f, 1.0f,  1,       1.0f, 1.0f,      1.0f, 1.0f, 0.5f, 0.0f,
-     2.79f,  2.79f, -2.0f, 1.0f,  1,       1.0f, 0.0f,      1.0f, 1.0f, 0.5f, 0.0f,
-    -2.79f,  2.79f, -2.0f, 1.0f,  1,       0.0f, 0.0f,      1.0f, 1.0f, 0.5f, 0.0f,
+    -100.0f, -100.0f, -5.0f, 1.0f,  1,       0.0f, 100.0f,      1.0f, 1.0f, 0.5f, 0.0f,
+     100.0f, -100.0f, -5.0f, 1.0f,  1,       100.0f, 100.0f,      1.0f, 1.0f, 0.5f, 0.0f,
+     100.0f,  100.0f, -5.0f, 1.0f,  1,       100.0f, 0.0f,      1.0f, 1.0f, 0.5f, 0.0f,
+    -100.0f,  100.0f, -5.0f, 1.0f,  1,       0.0f, 0.0f,      1.0f, 1.0f, 0.5f, 0.0f,
 
     -2.0f, -2.0f, 0.0f, 1.0f,  0,       0.0f, 1.0f,      1.0f, 0.0f, 0.5f, 0.5f,       //bottom left
      2.0f, -2.0f, 0.0f, 1.0f,  0,       1.0f, 1.0f,      1.0f, 0.0f, 0.5f, 0.5f,       //bottom right
@@ -21,10 +21,10 @@ GLfloat square[] = {
 
 GLfloat squareBackup[] = {
 //Square1 pos                  textid   text Coord       color
-    -2.79f, -2.79f, -2.0f, 1.0f,  1,       0.0f, 1.0f,      1.0f, 1.0f, 0.5f, 0.0f,
-     2.79f, -2.79f, -2.0f, 1.0f,  1,       1.0f, 1.0f,      1.0f, 1.0f, 0.5f, 0.0f,
-     2.79f,  2.79f, -2.0f, 1.0f,  1,       1.0f, 0.0f,      1.0f, 1.0f, 0.5f, 0.0f,
-    -2.79f,  2.79f, -2.0f, 1.0f,  1,       0.0f, 0.0f,      1.0f, 1.0f, 0.5f, 0.0f,
+    -100.0f, -100.0f, -5.0f, 1.0f,  1,       0.0f, 100.0f,      1.0f, 1.0f, 0.5f, 0.0f,
+     100.0f, -100.0f, -5.0f, 1.0f,  1,       100.0f, 100.0f,      1.0f, 1.0f, 0.5f, 0.0f,
+     100.0f,  100.0f, -5.0f, 1.0f,  1,       100.0f, 0.0f,      1.0f, 1.0f, 0.5f, 0.0f,
+    -100.0f,  100.0f, -5.0f, 1.0f,  1,       0.0f, 0.0f,      1.0f, 1.0f, 0.5f, 0.0f,
 
     -2.0f, -2.0f, 0.0f, 1.0f,  0,       0.0f, 1.0f,      1.0f, 0.0f, 0.5f, 0.5f,       //bottom left
      2.0f, -2.0f, 0.0f, 1.0f,  0,       1.0f, 1.0f,      1.0f, 0.0f, 0.5f, 0.5f,       //bottom right
@@ -290,11 +290,11 @@ void MyOpenGLWidget::transformSquare(QImage img){
     for(; index < size; index += increment){
         if(square[index] < 0){
             square[index] = -(abs(square[index]) * ratio);
-            square[index - 44] = -(abs(square[index - 44]) * ratio);
+//            square[index - 44] = -(abs(square[index - 44]) * ratio);
         }
         else{
             square[index] *= ratio;
-            square[index - 44] *= ratio;
+//            square[index - 44] *= ratio;
         }
     }
 }
