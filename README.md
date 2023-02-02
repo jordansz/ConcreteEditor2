@@ -6,4 +6,5 @@ Bugs to fix:
 
 Improvements: <br />
   1:  Currently using raw pointers, QPointer class would be better.
-  2:  When clipping out a region, current implementation only takes out selected area but it would be more realistic to allow continued cropping.  E.g. If someone has a pool, the first clip would keep the pool there and another clip would clip out the concrete around the pool
+  2:  When clipping out a region, current implementation only takes out selected area but it would be more realistic to allow continued cropping.  E.g. If someone has a pool, the first clip would keep the pool there and another clip would clip out the concrete around the pool.
+  3:  Stairs are not considered at all so would be just a flat surface if edited.
