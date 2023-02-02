@@ -13,11 +13,11 @@ GLfloat square[] = {
      2.79f,  2.79f, -2.0f, 1.0f,  1,       1.0f, 0.0f,      1.0f, 1.0f, 0.5f, 0.0f,
     -2.79f,  2.79f, -2.0f, 1.0f,  1,       0.0f, 0.0f,      1.0f, 1.0f, 0.5f, 0.0f,
 
-    -2.0f, -2.0f, 0.0f, 1.0f,  0,       0.0f, 1.0f,      1.0f, 0.0f, 0.5f, 0.0f,       //bottom left
-     2.0f, -2.0f, 0.0f, 1.0f,  0,       1.0f, 1.0f,      1.0f, 0.0f, 0.5f, 0.0f,       //bottom right
-     2.0f,  2.0f, 0.0f, 1.0f,  0,       1.0f, 0.0f,      1.0f, 0.0f, 0.5f, 0.0f,       //top right
-    -2.0f,  2.0f, 0.0f, 1.0f,  0,       0.0f, 0.0f,      1.0f, 0.0f, 0.5f, 0.0f,       //top left
-    };
+    -2.0f, -2.0f, 0.0f, 1.0f,  0,       0.0f, 1.0f,      1.0f, 0.0f, 0.5f, 0.5f,       //bottom left
+     2.0f, -2.0f, 0.0f, 1.0f,  0,       1.0f, 1.0f,      1.0f, 0.0f, 0.5f, 0.5f,       //bottom right
+     2.0f,  2.0f, 0.0f, 1.0f,  0,       1.0f, 0.0f,      1.0f, 0.0f, 0.5f, 0.5f,       //top right
+    -2.0f,  2.0f, 0.0f, 1.0f,  0,       0.0f, 0.0f,      1.0f, 0.0f, 0.5f, 0.5f,       //top left
+};
 
 GLfloat squareBackup[] = {
 //Square1 pos                  textid   text Coord       color
@@ -26,11 +26,11 @@ GLfloat squareBackup[] = {
      2.79f,  2.79f, -2.0f, 1.0f,  1,       1.0f, 0.0f,      1.0f, 1.0f, 0.5f, 0.0f,
     -2.79f,  2.79f, -2.0f, 1.0f,  1,       0.0f, 0.0f,      1.0f, 1.0f, 0.5f, 0.0f,
 
-    -2.0f, -2.0f, 0.0f, 1.0f,  0,       0.0f, 1.0f,      1.0f, 0.0f, 0.5f, 0.0f,       //bottom left
-     2.0f, -2.0f, 0.0f, 1.0f,  0,       1.0f, 1.0f,      1.0f, 0.0f, 0.5f, 0.0f,       //bottom right
-     2.0f,  2.0f, 0.0f, 1.0f,  0,       1.0f, 0.0f,      1.0f, 0.0f, 0.5f, 0.0f,       //top right
-    -2.0f,  2.0f, 0.0f, 1.0f,  0,       0.0f, 0.0f,      1.0f, 0.0f, 0.5f, 0.0f,       //top left
-    };
+    -2.0f, -2.0f, 0.0f, 1.0f,  0,       0.0f, 1.0f,      1.0f, 0.0f, 0.5f, 0.5f,       //bottom left
+     2.0f, -2.0f, 0.0f, 1.0f,  0,       1.0f, 1.0f,      1.0f, 0.0f, 0.5f, 0.5f,       //bottom right
+     2.0f,  2.0f, 0.0f, 1.0f,  0,       1.0f, 0.0f,      1.0f, 0.0f, 0.5f, 0.5f,       //top right
+    -2.0f,  2.0f, 0.0f, 1.0f,  0,       0.0f, 0.0f,      1.0f, 0.0f, 0.5f, 0.5f,       //top left
+};
 
 int stride = 11 * sizeof(GLfloat);
 
@@ -125,11 +125,6 @@ void MyOpenGLWidget::initializeGL()
     m_program->enableAttributeArray(attributeColor);
     m_program->setAttributeBuffer(attributeColor, GL_FLOAT, 7 * sizeof(GLfloat), 4, stride);
 
-//    m_program->setUniformValue("u_Texture", 0);
-//    GLfloat backSquareMaxW = qAbs(qTan(22.5f) * (5 + qAbs(square[0])));
-//    GLfloat backSquareMaxH = qAbs(qTan(22.5f) * (5 + qAbs(square[1])));
-//    qDebug() << "xmax: " << square[0] << "xval here: " << square[0] << "  ymax" << square[1];
-
     m_program->setUniformValue("maxSquareWidth", qAbs(square[0]));
     m_program->setUniformValue("maxSquareHeight", qAbs(square[1]));
 
@@ -139,7 +134,7 @@ void MyOpenGLWidget::initializeGL()
     m_vao.release();
     initialized = true;
 
-    emit(readyForBackTexture());
+    emit readyForBackTexture();
 }
 
 void MyOpenGLWidget::updateTexture(QImage img, QOpenGLTexture *&texture)
@@ -169,21 +164,29 @@ void MyOpenGLWidget::paintGL(){
     QMatrix4x4 mvp = projection * view * model;
 
     m_program->setUniformValue("u_MVP", mvp);
-    m_program->setUniformValue("u_Texture", 0);
 
     int halfSize = (sizeof(squareIndeces) / sizeof(squareIndeces[0])) / 2;
 
     if(m_texture2 != nullptr){
-        qDebug() << "Drawing textured back square";
-        m_texture1->release();
         m_texture2->bind();
+        m_program->setUniformValue("u_Texture", 0);
+        m_program->setUniformValue("u_hasTexture", 1);
     }
+    else
+        m_program->setUniformValue("u_hasTexture", 0);
     glDrawElements(GL_TRIANGLES, halfSize, GL_UNSIGNED_INT, &squareIndeces[0]);
 
-
+    m_program->setUniformValue("u_Texture", 0);
+    m_program->setUniformValue("u_hasTexture", 1);
+    mvp = projection * view * QMatrix4x4();
+    m_program->setUniformValue("u_MVP", mvp);
     m_texture1->bind();
     glDrawElements(GL_TRIANGLES, halfSize, GL_UNSIGNED_INT, &squareIndeces[halfSize]);
 
+
+    m_texture1->release();
+    if(m_texture2 != nullptr)
+        m_texture2->release();
     m_vao.release();
     m_program->release();
 }

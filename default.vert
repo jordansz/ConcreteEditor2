@@ -17,12 +17,12 @@ void main()
 //    if(tIndex == 1.0f && ((abs(position.x) > maxSquareWidth) || (abs(position.y) > maxSquareHeight))
 //            || position.z > -1.0f){
 //        v_color = vec4(0.0f, 1.0f, 1.0f, 0.5f);
-
 //    }
 //    else{
 //        v_color = color;
 //    }
+    v_color = color;
     gl_Position = u_MVP * position;
-   v_textCoord = textCoord;
-   v_tIndex = tIndex;
+    v_textCoord = textCoord;
+    v_tIndex = tIndex;
 };
