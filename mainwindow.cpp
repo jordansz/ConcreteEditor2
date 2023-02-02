@@ -117,8 +117,8 @@ void MainWindow::displaySelectedBackImg()
 
 QVector3D MainWindow::getSliderVals()
 {
-    GLfloat x = ui->wobbleSlider->value();
-    GLfloat y = ui->tiltSlider->value();
+    GLfloat x = ui->tiltSlider->value();
+    GLfloat y = ui->wobbleSlider->value();
     GLfloat z = 0.0f;
     return QVector3D(x, y, z);
 }

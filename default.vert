@@ -25,4 +25,9 @@ void main()
     gl_Position = u_MVP * position;
     v_textCoord = textCoord;
     v_tIndex = tIndex;
+//    if(tIndex == 1.0f && (abs(gl_Position.x) > maxSquareWidth) || (abs(gl_Position.y) > maxSquareHeight)){
+//        v_color = vec4(0.0f, 1.0f, 1.0f, 0.5f);
+//    }
+//    else
+//        v_color = color;
 };

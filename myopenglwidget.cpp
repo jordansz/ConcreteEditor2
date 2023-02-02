@@ -264,7 +264,6 @@ void MyOpenGLWidget::transformSquare(QImage img){
     int size = (sizeof(square) / sizeof(square[0]));
     int index = ((imgWRatio >= 1) ? 1 : 0) + (size / 2);
     int increment = stride / sizeof(square[0]);
-//    qDebug() << square;
     for(; index < size; index += increment){
         if(square[index] < 0){
             square[index] = -(abs(square[index]) * ratio);

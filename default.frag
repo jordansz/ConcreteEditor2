@@ -9,17 +9,15 @@ uniform int u_hasTexture;
 
 void main()
 {
-//    if(v_tIndex == 1){
-//        color = v_color;
-//    }
-//    else if(v_tIndex == 0){
-//        color = texture(u_Texture, v_textCoord);
-//    }
-//    if(u_Texture == sampler2D())
-//        color = v_color;
-//    else
     if(u_hasTexture == 1)
         color = texture(u_Texture, v_textCoord);
     else if(u_hasTexture == 0)
         color = v_color;
+//    if(u_hasTexture == 1)
+//        if(v_color == vec4(0.0f, 1.0f, 1.0f, 0.5f))
+//            color = vec4(0.0f, 1.0f, 1.0f, 0.5f);
+//        else
+//            color = texture(u_Texture, v_textCoord);
+//    else if(u_hasTexture == 0)
+//        color = v_color;
 };
