@@ -18,9 +18,9 @@ class MyOpenGLWidget : public QOpenGLWidget, public QOpenGLFunctions
 {
     Q_OBJECT
 public:
-    MyOpenGLWidget(QWidget *parent = nullptr);
+    MyOpenGLWidget(QImage img, QWidget *parent = nullptr);
     ~MyOpenGLWidget();
-    void updateTexture(QImage img);
+    void updateTexture(QImage img, QOpenGLTexture *&texture);
     void restart();
 
 protected:
@@ -30,7 +30,7 @@ protected:
 
 private:
     void transformSquare(QImage img);
-    void initTexture(QImage img1, QOpenGLTexture *&texture);
+    void initTexture(QImage img, QOpenGLTexture *&texture);
     void initShader(const QString &fp1, const QString &fp2);
 
 public slots:
@@ -55,6 +55,7 @@ private:
 
 //    double prev;
     QVector3D rotationVec;
+    QImage frontImg;
     bool initialized;
 //    double imgRatio;
 };

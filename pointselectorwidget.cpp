@@ -6,24 +6,28 @@
 PointSelectorWidget::PointSelectorWidget(QWidget *parent)
     : QWidget{parent}
 {
+    qDebug() << "Constructing pointSelectorWidget";
     setParent(parent);
 //    setImage(":/Images/homeButton.png");
     editImage = false;
     connect(this, SIGNAL(sendImg(QImage)), parent, SLOT(initMyOpenglWidget(QImage)));
+    initialized = true;
 }
 
 PointSelectorWidget::PointSelectorWidget(QImage img, QWidget *parent)
     : QWidget{parent}
 {
+    qDebug() << "Constructing pointSelectorWidget";
     setParent(parent);
     setImage(img);
     this->adjustSize();
     editImage = false;
     connect(this, SIGNAL(sendImg(QImage)), parent, SLOT(initMyOpenglWidget(QImage)));
+    initialized = true;
 }
 
 PointSelectorWidget::~PointSelectorWidget(){
-    qDebug() << "Destroying opengl widget\n\n\n";
+    qDebug() << "Destroying pointSelectorWidget";
 }
 
 void PointSelectorWidget::setImage(const QString fp)

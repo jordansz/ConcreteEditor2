@@ -48,21 +48,24 @@ GLuint squareIndeces[] = {
 //    }
 //}
 
-MyOpenGLWidget::MyOpenGLWidget(QWidget *parent)
+MyOpenGLWidget::MyOpenGLWidget(QImage img, QWidget *parent)
     : QOpenGLWidget(parent)
     , m_program(new QOpenGLShaderProgram(nullptr))
+    , m_texture1(nullptr)
+    , m_texture2(nullptr)
+    , frontImg(img)
 {
     qDebug() << "Constructing new openglWidget";
+    makeCurrent();
     initialized = false;
     rotationVec = QVector3D(0.0f, 0.0f, 0.0f);
-//    m_texture2 = nullptr;
-//    makeSquareBackupCopy();
+
 //    set opengl version to #330
     QSurfaceFormat format;
     format.setVersion(3, 3);
     format.setProfile(QSurfaceFormat::CoreProfile);
     setFormat(format);
-//    hasTexture = false;
+
     connect(this, SIGNAL(enableSliders()), parent, SLOT(enableSliders()));
 }
 
@@ -72,28 +75,22 @@ MyOpenGLWidget::~MyOpenGLWidget()
     qDebug() << "openglWidget Deconstructor called";
     makeCurrent();
     delete m_program;
-    delete m_texture1;
-    delete m_texture2;
+    if(m_texture1 != nullptr)
+        delete m_texture1;
+    if(m_texture2 != nullptr)
+        delete m_texture2;
 
     m_vbo.destroy();
     m_vao.destroy();
     doneCurrent();
 }
 
-void MyOpenGLWidget::updateTexture(QImage img)
-{
-    qDebug() << "Updating Texture and Square";
-    transformSquare(img);
-    initTexture(img, m_texture1);
-
-}
-
 void MyOpenGLWidget::initializeGL()
 {
+    qDebug() << "Initializing opengl for myOpenglWidget";
     emit enableSliders();
     initializeOpenGLFunctions();
     glClearColor(0.9f, 0.8f, 0.8f, 0.0f);
-//    glClearColor(1.0f, 1.0f, 1.0f, 0.5f);
     glDisable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -105,6 +102,8 @@ void MyOpenGLWidget::initializeGL()
     m_vbo.create();
     m_vbo.bind();
     m_vbo.setUsagePattern(QOpenGLBuffer::DynamicDraw);
+
+    updateTexture(frontImg, m_texture1);            // must before allocating vbo data because of the function changing the global square variable
     m_vbo.allocate((void*)square, sizeof(square));
 
     initShader(":/Shaders/default.vert", ":/Shaders/default.frag");
@@ -140,6 +139,16 @@ void MyOpenGLWidget::initializeGL()
     initialized = true;
 }
 
+void MyOpenGLWidget::updateTexture(QImage img, QOpenGLTexture *&texture)
+{
+    qDebug() << "Updating Texture and Square";
+    if(texture == m_texture1){
+        qDebug() << "Updating square for new front image";
+        transformSquare(img);
+    }
+    initTexture(img, texture);
+
+}
 
 void MyOpenGLWidget::paintGL(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -175,13 +184,9 @@ void MyOpenGLWidget::resizeGL(int w, int h){
 
 
 void MyOpenGLWidget::initTexture(QImage img1, QOpenGLTexture *&texture){
-//    if(texture){
-////        texture = nullptr;
-//        qDebug() << "non null!!!!!";
-//        delete texture;
-//    }
-//    delete texture;
-//    texture = NULL;
+    if(texture != nullptr){
+        delete texture;
+    }
     texture = new QOpenGLTexture(img1);
     texture->setMinificationFilter(QOpenGLTexture::Nearest);
     texture->setMagnificationFilter(QOpenGLTexture::Linear);
@@ -245,6 +250,7 @@ void MyOpenGLWidget::transformSquare(QImage img){
     int size = (sizeof(square) / sizeof(square[0]));
     int index = ((imgWRatio >= 1) ? 1 : 0) + (size / 2);
     int increment = stride / sizeof(square[0]);
+//    qDebug() << square;
     for(; index < size; index += increment){
         if(square[index] < 0){
             square[index] = -(abs(square[index]) * ratio);

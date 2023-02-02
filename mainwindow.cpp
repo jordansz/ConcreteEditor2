@@ -10,8 +10,8 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , selectedTextureImg(new QImage(""))
     , ui(new Ui::MainWindow)
-    , pointSelectorWidget(new PointSelectorWidget(this))
-    , myOpenglWidget(new MyOpenGLWidget(this))
+    , pointSelectorWidget(nullptr)
+    , myOpenglWidget(nullptr)
     , widgetTemp(this)
 {
     ui->setupUi(this);
@@ -21,9 +21,9 @@ MainWindow::MainWindow(QWidget *parent)
 
 //    QWidget widget(this);
 //    ui->stackedWidget->addWidget(&widget);
-    pointSelectorWidget->setFocusPolicy(Qt::StrongFocus);       // needed for backspace cropping selection
-    ui->stackedWidget->addWidget(pointSelectorWidget);
-    ui->stackedWidget->addWidget(myOpenglWidget);
+//    pointSelectorWidget->setFocusPolicy(Qt::StrongFocus);       // needed for backspace cropping selection
+//    ui->stackedWidget->addWidget(pointSelectorWidget);
+//    ui->stackedWidget->addWidget(myOpenglWidget);
     ui->stackedWidget->setCurrentIndex(ui->stackedWidget->indexOf(&widgetTemp));
 //    ui->stackedWidget->setCurrentIndex(ui->stackedWidget->indexOf(pointSelectorWidget));
 }
@@ -51,11 +51,15 @@ void MainWindow::recieveTutorialDialogSize(QSize newSize, QPoint newPos)
 void MainWindow::initMyOpenglWidget(QImage img)
 {
     ui->stackedWidget->setCurrentIndex(ui->stackedWidget->indexOf(&widgetTemp));
-    ui->stackedWidget->removeWidget(myOpenglWidget);
-    myOpenglWidget = new MyOpenGLWidget(this);
+    if(myOpenglWidget != nullptr){
+        myOpenglWidget->restart();      // important for resetting the global variable square
+        ui->stackedWidget->removeWidget(myOpenglWidget);
+        delete myOpenglWidget;
+    }
+    myOpenglWidget = new MyOpenGLWidget(img, this);
     qDebug() << "initializing opengl stuff";
-    myOpenglWidget->restart();                      //square is global, reseting it just in case
-    myOpenglWidget->updateTexture(img);
+//    myOpenglWidget->restart();                      //square is global, reseting it just in case
+//    myOpenglWidget->updateTexture(img);
     connect(this, SIGNAL(slidersChanged(QVector3D)), myOpenglWidget, SLOT(updateRotation(QVector3D)));
     ui->stackedWidget->addWidget(myOpenglWidget);
     ui->stackedWidget->setCurrentIndex(ui->stackedWidget->indexOf(myOpenglWidget));
@@ -90,10 +94,14 @@ void MainWindow::on_selectPicBtn_clicked()
         QImage image;
         assert(image.load(filename));
         ui->stackedWidget->setCurrentIndex(ui->stackedWidget->indexOf(&widgetTemp));
-        ui->stackedWidget->removeWidget(pointSelectorWidget);
-        pointSelectorWidget = NULL;
-        delete pointSelectorWidget;
+        if(pointSelectorWidget != nullptr){
+            qDebug() << "Deleting previous pointSelectorWidget\n" << pointSelectorWidget->initialized;
+            ui->stackedWidget->removeWidget(pointSelectorWidget);
+            delete pointSelectorWidget;
+
+        }
         pointSelectorWidget = new PointSelectorWidget(image, this);
+//        pointSelectorWidget = NULL;
 //        pointSelectorWidget->restart();
 //        pointSelectorWidget->setImage(image);
         pointSelectorWidget->setFocusPolicy(Qt::StrongFocus);       // needed for backspace cropping selection

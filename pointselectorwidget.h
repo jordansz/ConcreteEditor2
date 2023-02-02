@@ -29,6 +29,7 @@ public:
     void resizeImage();
     void restart();
     void deletePoint();
+    bool initialized = false;
 
 protected:
     void resizeEvent(QResizeEvent *event);
