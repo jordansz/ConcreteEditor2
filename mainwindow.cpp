@@ -52,7 +52,7 @@ void MainWindow::initMyOpenglWidget(QImage img)
         delete myOpenglWidget;
     }
     myOpenglWidget = new MyOpenGLWidget(img, this);
-    connect(this, SIGNAL(slidersChanged(QVector3D)), myOpenglWidget, SLOT(updateRotation(QVector3D)));
+    connect(this, SIGNAL(slidersChanged(QVector4D)), myOpenglWidget, SLOT(updateSliderVals(QVector4D)));
     ui->stackedWidget->addWidget(myOpenglWidget);
     ui->stackedWidget->setCurrentIndex(ui->stackedWidget->indexOf(myOpenglWidget));
 }
@@ -115,12 +115,13 @@ void MainWindow::displaySelectedBackImg()
     }
 }
 
-QVector3D MainWindow::getSliderVals()
+QVector4D MainWindow::getSliderVals()
 {
     GLfloat x = ui->tiltSlider->value();
     GLfloat y = ui->wobbleSlider->value();
     GLfloat z = 0.0f;
-    return QVector3D(x, y, z);
+    GLfloat size = ui->sizeSlider->value() / ((GLfloat)ui->sizeSlider->maximum() / 2);
+    return QVector4D(x, y, z, size);
 }
 
 void MainWindow::resetSliders()

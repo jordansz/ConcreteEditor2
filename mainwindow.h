@@ -38,11 +38,11 @@ public slots:
     void displaySelectedBackImg();
 
 signals:
-    void slidersChanged(QVector3D vec);
+    void slidersChanged(QVector4D vec);
     void userSelectedTexture(QImage img);
 
 private:
-    QVector3D getSliderVals();
+    QVector4D getSliderVals();
     void resetSliders();
 
     QImage *selectedTextureImg;

@@ -5,7 +5,7 @@
 #include <QtMath>
 
 
-// These values are for front square w/ length of 4, back square is at -2 z!
+// These values are for front square w/ length of 4, back square i
 GLfloat square[] = {
 //Square1 pos                  textid   text Coord       color
     -2.79f, -2.79f, -2.0f, 1.0f,  1,       0.0f, 1.0f,      1.0f, 1.0f, 0.5f, 0.0f,
@@ -154,6 +154,7 @@ void MyOpenGLWidget::paintGL(){
     m_texture1->bind();
 
     QMatrix4x4 model;
+//    model.scale(scaleSize);
     model.rotate(rotationVec.x(), QVector3D(1, 0, 0));
     model.rotate(rotationVec.y(), QVector3D(0, 1, 0));
 
@@ -232,9 +233,27 @@ void MyOpenGLWidget::initShader(const QString &fp1, const QString &fp2){
     }
 }
 
-void MyOpenGLWidget::updateRotation(QVector3D vec)
+void MyOpenGLWidget::updateSize(double val)
 {
-    rotationVec = vec;
+    if(val < 0.02)
+        val = 0.04;
+    qDebug() << val;
+    square[6]  = val;
+    square[16] = val;
+    square[17] = val;
+    square[27] = val;
+
+    m_vbo.bind();
+    m_vbo.write(0, (void*)square, sizeof(square) / 2);
+    m_program->enableAttributeArray(attributeTextCoord);
+    m_program->setAttributeBuffer(attributeTextCoord, GL_FLOAT, 5, 2, stride);
+}
+
+void MyOpenGLWidget::updateSliderVals(QVector4D vec)
+{
+    rotationVec = QVector3D(vec.x(), vec.y(), vec.z());
+    scaleSize = vec.w();
+    updateSize(scaleSize);
     update();
 }
 
@@ -255,6 +274,10 @@ void MyOpenGLWidget::restart()
     for(int i = 0; i < sizeof(square) / sizeof(square[0]); i++){
         square[i] = squareBackup[i];
     }
+    m_vbo.bind();
+    m_vbo.write(0, (void*)square, sizeof(square) / 2);
+    m_program->enableAttributeArray(attributeTextCoord);
+    m_program->setAttributeBuffer(attributeTextCoord, GL_FLOAT, 5, 2, stride);
 }
 
 void MyOpenGLWidget::transformSquare(QImage img){

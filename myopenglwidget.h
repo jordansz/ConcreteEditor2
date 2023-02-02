@@ -32,10 +32,11 @@ private:
     void transformSquare(QImage img);
     void initTexture(QImage img, QOpenGLTexture *&texture);
     void initShader(const QString &fp1, const QString &fp2);
+    void updateSize(double val);
 
 public slots:
 //    void hasTexturePicked();
-    void updateRotation(QVector3D vec);
+    void updateSliderVals(QVector4D vec);
     void updateBackTexture(QImage img);
 
 signals:
@@ -56,6 +57,7 @@ private:
 
 //    double prev;
     QVector3D rotationVec;
+    double scaleSize;
     QImage frontImg;
     bool initialized;
 //    double imgRatio;
