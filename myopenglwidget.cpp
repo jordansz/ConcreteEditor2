@@ -53,6 +53,7 @@ MyOpenGLWidget::MyOpenGLWidget(QImage img, QWidget *parent)
     , m_program(new QOpenGLShaderProgram(nullptr))
     , m_texture1(nullptr)
     , m_texture2(nullptr)
+    , scaleSize(100.0f)
     , frontImg(img)
 {
     qDebug() << "Constructing new openglWidget";

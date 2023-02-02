@@ -122,7 +122,7 @@ QVector4D MainWindow::getSliderVals()
     GLfloat x = ui->tiltSlider->value();
     GLfloat y = ui->wobbleSlider->value();
     GLfloat z = 0.0f;
-    GLfloat scaledSize = ui->sizeSlider->value() / 2.0f;
+    GLfloat scaledSize = 200.0f - ui->sizeSlider->value() / 2.0f;
 
 //            ui->sizeSlider->value() / (GLfloat)(ui->sizeSlider->maximum());
     return QVector4D(x, y, z, scaledSize);
