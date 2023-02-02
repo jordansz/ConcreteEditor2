@@ -8,10 +8,11 @@ uniform sampler2D u_Texture;
 
 void main()
 {
-    if(v_tIndex == 1){
-        color = v_color;
-    }
-    else if(v_tIndex == 0){
-        color = texture(u_Texture, v_textCoord);
-    }
+//    if(v_tIndex == 1){
+//        color = v_color;
+//    }
+//    else if(v_tIndex == 0){
+//        color = texture(u_Texture, v_textCoord);
+//    }
+    color = texture(u_Texture, v_textCoord);
 };

@@ -8,7 +8,8 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , selectedTextureImg(new QImage(""))
+//    , selectedTextureImg(new QImage(""))
+    , selectedTextureImg(nullptr)
     , ui(new Ui::MainWindow)
     , pointSelectorWidget(nullptr)
     , myOpenglWidget(nullptr)
@@ -19,13 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tiltSlider->setDisabled(1);
     ui->wobbleSlider->setDisabled(1);
 
-//    QWidget widget(this);
-//    ui->stackedWidget->addWidget(&widget);
-//    pointSelectorWidget->setFocusPolicy(Qt::StrongFocus);       // needed for backspace cropping selection
-//    ui->stackedWidget->addWidget(pointSelectorWidget);
-//    ui->stackedWidget->addWidget(myOpenglWidget);
     ui->stackedWidget->setCurrentIndex(ui->stackedWidget->indexOf(&widgetTemp));
-//    ui->stackedWidget->setCurrentIndex(ui->stackedWidget->indexOf(pointSelectorWidget));
 }
 
 MainWindow::~MainWindow()
@@ -98,9 +93,6 @@ void MainWindow::on_selectPicBtn_clicked()
 
         }
         pointSelectorWidget = new PointSelectorWidget(image, this);
-//        pointSelectorWidget = NULL;
-//        pointSelectorWidget->restart();
-//        pointSelectorWidget->setImage(image);
         pointSelectorWidget->setFocusPolicy(Qt::StrongFocus);       // needed for backspace cropping selection
         ui->stackedWidget->addWidget(pointSelectorWidget);
         ui->stackedWidget->setCurrentIndex(ui->stackedWidget->indexOf(pointSelectorWidget));
@@ -171,18 +163,16 @@ void MainWindow::on_chooseTxtreBtn_clicked()
 
     QString filename = QFileDialog::getOpenFileName(this, tr("Select Texture"), ":/Textures", tr("Images (*png *jpg)"));  //"Images (... part is allowables photo types... opens
     if(!filename.isNull()){
-        if(!selectedTextureImg->isNull()){
-            selectedTextureImg = nullptr;
+        if(selectedTextureImg != nullptr){
             delete selectedTextureImg;
-            qDebug() << "Not ldkdk Null image";
         }
-//        selectedTextureImg = new QImage(filename);
         selectedTextureImg = new QImage(filename);
-        qDebug() << selectedTextureImg->load(filename);
-//        selectedTextureImg = new QImage(this);
-        qDebug() << "User selected a texture" << selectedTextureImg;
         assert(!selectedTextureImg->isNull());
-        qDebug() << "past it";
+
+        if(myOpenglWidget != nullptr){
+            connect(this, SIGNAL(userSelectedTexture(QImage)), myOpenglWidget, SLOT(updateBackTexture(QImage)));
+            emit userSelectedTexture(*selectedTextureImg);
+        }
     }
 }
 

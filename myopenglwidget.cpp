@@ -170,7 +170,15 @@ void MyOpenGLWidget::paintGL(){
     m_program->setUniformValue("u_Texture", 0);
 
     int halfSize = (sizeof(squareIndeces) / sizeof(squareIndeces[0])) / 2;
+
+    if(m_texture2 != nullptr){
+        qDebug() << "Drawing textured back square";
+        m_texture1->release();
+        m_texture2->bind();
+    }
     glDrawElements(GL_TRIANGLES, halfSize, GL_UNSIGNED_INT, &squareIndeces[0]);
+
+    m_texture1->bind();
     glDrawElements(GL_TRIANGLES, halfSize, GL_UNSIGNED_INT, &squareIndeces[halfSize]);
 
     m_vao.release();
@@ -224,9 +232,9 @@ void MyOpenGLWidget::updateRotation(QVector3D vec)
     update();
 }
 
-void MyOpenGLWidget::updateTextureSlot(QImage *img)
+void MyOpenGLWidget::updateBackTexture(QImage img)
 {
-    initTexture(*img, m_texture2);
+    initTexture(img, m_texture2);
 }
 
 //void MyOpenGLWidget::hasTexturePicked()

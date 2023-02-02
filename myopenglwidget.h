@@ -36,7 +36,7 @@ private:
 public slots:
 //    void hasTexturePicked();
     void updateRotation(QVector3D vec);
-    void updateTextureSlot(QImage *img);
+    void updateBackTexture(QImage img);
 
 signals:
     void enableSliders();
