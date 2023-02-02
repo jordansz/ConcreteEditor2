@@ -38,12 +38,13 @@ public slots:
 
 signals:
     void slidersChanged(QVector3D vec);
-    void userSelectedTexture();
+    void userSelectedTexture(QImage img);
 
 private:
     QVector3D getSliderVals();
     void resetSliders();
 
+    QImage *selectedTextureImg;
     Ui::MainWindow *ui;
     PointSelectorWidget *pointSelectorWidget;
     MyOpenGLWidget *myOpenglWidget;

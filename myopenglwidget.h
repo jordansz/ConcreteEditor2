@@ -36,6 +36,7 @@ private:
 public slots:
 //    void hasTexturePicked();
     void updateRotation(QVector3D vec);
+    void updateTextureSlot(QImage *img);
 
 signals:
     void enableSliders();
@@ -50,13 +51,11 @@ private:
     int attributeTextCoord;
     int attributeTextIndex;
     QOpenGLTexture *m_texture1;
-    double prev;
+    QOpenGLTexture *m_texture2;
+
+//    double prev;
     QVector3D rotationVec;
-//    bool hasTexture;
-    double xRot;
-    double yRot;
-    double zRot;
-//    QOpenGLTexture *m_texture2;
+    bool initialized;
 //    double imgRatio;
 };
 

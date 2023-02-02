@@ -52,8 +52,10 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget *parent)
     : QOpenGLWidget(parent)
     , m_program(new QOpenGLShaderProgram(nullptr))
 {
-    prev = 0;
+    qDebug() << "Constructing new openglWidget";
+    initialized = false;
     rotationVec = QVector3D(0.0f, 0.0f, 0.0f);
+//    m_texture2 = nullptr;
 //    makeSquareBackupCopy();
 //    set opengl version to #330
     QSurfaceFormat format;
@@ -67,19 +69,20 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget *parent)
 
 MyOpenGLWidget::~MyOpenGLWidget()
 {
+    qDebug() << "openglWidget Deconstructor called";
     makeCurrent();
     delete m_program;
     delete m_texture1;
+    delete m_texture2;
 
     m_vbo.destroy();
     m_vao.destroy();
-
     doneCurrent();
 }
 
 void MyOpenGLWidget::updateTexture(QImage img)
 {
-    qDebug() << "Updating Texture and Square: ";
+    qDebug() << "Updating Texture and Square";
     transformSquare(img);
     initTexture(img, m_texture1);
 
@@ -125,7 +128,7 @@ void MyOpenGLWidget::initializeGL()
 //    m_program->setUniformValue("u_Texture", 0);
 //    GLfloat backSquareMaxW = qAbs(qTan(22.5f) * (5 + qAbs(square[0])));
 //    GLfloat backSquareMaxH = qAbs(qTan(22.5f) * (5 + qAbs(square[1])));
-    qDebug() << "xmax: " << square[0] << "xval here: " << square[0] << "  ymax" << square[1];
+//    qDebug() << "xmax: " << square[0] << "xval here: " << square[0] << "  ymax" << square[1];
 
     m_program->setUniformValue("maxSquareWidth", qAbs(square[0]));
     m_program->setUniformValue("maxSquareHeight", qAbs(square[1]));
@@ -134,6 +137,7 @@ void MyOpenGLWidget::initializeGL()
     m_vbo.release();
     m_program->release();
     m_vao.release();
+    initialized = true;
 }
 
 
@@ -171,10 +175,17 @@ void MyOpenGLWidget::resizeGL(int w, int h){
 
 
 void MyOpenGLWidget::initTexture(QImage img1, QOpenGLTexture *&texture){
-        texture = new QOpenGLTexture(img1);
-        texture->setMinificationFilter(QOpenGLTexture::Nearest);
-        texture->setMagnificationFilter(QOpenGLTexture::Linear);
-        texture->setWrapMode(QOpenGLTexture::Repeat);
+//    if(texture){
+////        texture = nullptr;
+//        qDebug() << "non null!!!!!";
+//        delete texture;
+//    }
+//    delete texture;
+//    texture = NULL;
+    texture = new QOpenGLTexture(img1);
+    texture->setMinificationFilter(QOpenGLTexture::Nearest);
+    texture->setMagnificationFilter(QOpenGLTexture::Linear);
+    texture->setWrapMode(QOpenGLTexture::Repeat);
 }
 
 void MyOpenGLWidget::initShader(const QString &fp1, const QString &fp2){
@@ -204,10 +215,13 @@ void MyOpenGLWidget::initShader(const QString &fp1, const QString &fp2){
 
 void MyOpenGLWidget::updateRotation(QVector3D vec)
 {
-    prev += vec.x();
-//    vec.x = prev;
     rotationVec = vec;
     update();
+}
+
+void MyOpenGLWidget::updateTextureSlot(QImage *img)
+{
+    initTexture(*img, m_texture2);
 }
 
 //void MyOpenGLWidget::hasTexturePicked()

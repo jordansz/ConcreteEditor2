@@ -8,6 +8,7 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
+    , selectedTextureImg(new QImage(""))
     , ui(new Ui::MainWindow)
     , pointSelectorWidget(new PointSelectorWidget(this))
     , myOpenglWidget(new MyOpenGLWidget(this))
@@ -53,11 +54,10 @@ void MainWindow::initMyOpenglWidget(QImage img)
     ui->stackedWidget->removeWidget(myOpenglWidget);
     myOpenglWidget = new MyOpenGLWidget(this);
     qDebug() << "initializing opengl stuff";
-    myOpenglWidget->restart();
+    myOpenglWidget->restart();                      //square is global, reseting it just in case
     myOpenglWidget->updateTexture(img);
     connect(this, SIGNAL(slidersChanged(QVector3D)), myOpenglWidget, SLOT(updateRotation(QVector3D)));
     ui->stackedWidget->addWidget(myOpenglWidget);
-    qDebug() << ui->stackedWidget->indexOf(myOpenglWidget);
     ui->stackedWidget->setCurrentIndex(ui->stackedWidget->indexOf(myOpenglWidget));
 }
 
@@ -163,7 +163,21 @@ void MainWindow::on_chooseTxtreBtn_clicked()
 {
     //I Should make this a seperate dialog window to show off the textures.  Kind of photo gallery widget
 //    QFile file(":/Textures");
+
     QString filename = QFileDialog::getOpenFileName(this, tr("Select Texture"), ":/Textures", tr("Images (*png *jpg)"));  //"Images (... part is allowables photo types... opens
-//    qDebug() << filename;
+    if(!filename.isNull()){
+        if(!selectedTextureImg->isNull()){
+            selectedTextureImg = nullptr;
+            delete selectedTextureImg;
+            qDebug() << "Not ldkdk Null image";
+        }
+//        selectedTextureImg = new QImage(filename);
+        selectedTextureImg = new QImage(filename);
+        qDebug() << selectedTextureImg->load(filename);
+//        selectedTextureImg = new QImage(this);
+        qDebug() << "User selected a texture" << selectedTextureImg;
+        assert(!selectedTextureImg->isNull());
+        qDebug() << "past it";
+    }
 }
 
