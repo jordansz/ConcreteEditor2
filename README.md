@@ -1,7 +1,9 @@
 # ConcreteEditor2
 
-Bugs to fix:  
-  1: On start of application, If user selects a photo, then tries to select another one without doing anything else.  The program will crash.
+Bugs to fix/things to work on:  
+  1: Below the sliders and buttons I have an empty place holder widget that I want to display the Information about the texture chosen.
+<br/> 2:  On start of application, If user selects a photo, then tries to select another one without doing anything else.  The program will crash.
+<br/> 3:  When selecting a texture I should learn how to open and display the textures in the .qrc file.  It could be better to make a new dialog that opens an image viewer widget of all the textures.  
 
 
 Improvements: <br />
