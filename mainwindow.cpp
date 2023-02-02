@@ -62,8 +62,10 @@ void MainWindow::on_restartBtn_clicked()
 {
     resetSliders();
     disableSliders();
-    pointSelectorWidget->restart();
-    ui->stackedWidget->setCurrentIndex(ui->stackedWidget->indexOf(pointSelectorWidget));
+    if(pointSelectorWidget != nullptr){
+        pointSelectorWidget->restart();
+        ui->stackedWidget->setCurrentIndex(ui->stackedWidget->indexOf(pointSelectorWidget));
+    }
 }
 
 
