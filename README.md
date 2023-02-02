@@ -5,4 +5,5 @@ Bugs to fix:
 
 
 Improvements:
+
   1:  Currently using raw pointers, QPointer class would be better.
