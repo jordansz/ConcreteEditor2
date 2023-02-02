@@ -57,9 +57,6 @@ void MainWindow::initMyOpenglWidget(QImage img)
         delete myOpenglWidget;
     }
     myOpenglWidget = new MyOpenGLWidget(img, this);
-    qDebug() << "initializing opengl stuff";
-//    myOpenglWidget->restart();                      //square is global, reseting it just in case
-//    myOpenglWidget->updateTexture(img);
     connect(this, SIGNAL(slidersChanged(QVector3D)), myOpenglWidget, SLOT(updateRotation(QVector3D)));
     ui->stackedWidget->addWidget(myOpenglWidget);
     ui->stackedWidget->setCurrentIndex(ui->stackedWidget->indexOf(myOpenglWidget));

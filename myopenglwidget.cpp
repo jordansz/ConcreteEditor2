@@ -142,7 +142,7 @@ void MyOpenGLWidget::initializeGL()
 void MyOpenGLWidget::updateTexture(QImage img, QOpenGLTexture *&texture)
 {
     qDebug() << "Updating Texture and Square";
-    if(texture == m_texture1){
+    if(texture == nullptr && initialized == false){
         qDebug() << "Updating square for new front image";
         transformSquare(img);
     }
