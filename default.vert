@@ -10,6 +10,7 @@ uniform float maxSquareWidth;
 
 out vec2 v_textCoord;
 out float v_tIndex;
+//out int ignorePix;
 flat out vec4 v_color;
 
 void main()

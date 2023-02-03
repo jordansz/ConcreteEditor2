@@ -8,10 +8,10 @@
 // These values are for front square w/ length of 4, back square i
 GLfloat square[] = {
 //Square1 pos                  textid   text Coord       color
-    -100.0f, -100.0f, -5.0f, 1.0f,  1,       0.0f, 100.0f,      1.0f, 1.0f, 0.5f, 0.0f,
-     100.0f, -100.0f, -5.0f, 1.0f,  1,       100.0f, 100.0f,      1.0f, 1.0f, 0.5f, 0.0f,
-     100.0f,  100.0f, -5.0f, 1.0f,  1,       100.0f, 0.0f,      1.0f, 1.0f, 0.5f, 0.0f,
-    -100.0f,  100.0f, -5.0f, 1.0f,  1,       0.0f, 0.0f,      1.0f, 1.0f, 0.5f, 0.0f,
+    -100.0f, -100.0f, -5.0f, 1.0f,  1,  0.0f, 100.0f,      1.0f, 1.0f, 0.5f, 0.0f,
+     100.0f, -100.0f, -5.0f, 1.0f,  1,  100.0f, 100.0f,      1.0f, 1.0f, 0.5f, 0.0f,
+     100.0f,  100.0f, -5.0f, 1.0f,  1,  100.0f, 0.0f,      1.0f, 1.0f, 0.5f, 0.0f,
+    -100.0f,  100.0f, -5.0f, 1.0f,  1,  0.0f, 0.0f,      1.0f, 1.0f, 0.5f, 0.0f,
 
     -2.0f, -2.0f, 0.0f, 1.0f,  0,       0.0f, 1.0f,      1.0f, 0.0f, 0.5f, 0.5f,       //bottom left
      2.0f, -2.0f, 0.0f, 1.0f,  0,       1.0f, 1.0f,      1.0f, 0.0f, 0.5f, 0.5f,       //bottom right
@@ -21,10 +21,10 @@ GLfloat square[] = {
 
 GLfloat squareBackup[] = {
 //Square1 pos                  textid   text Coord       color
-    -100.0f, -100.0f, -5.0f, 1.0f,  1,       0.0f, 100.0f,      1.0f, 1.0f, 0.5f, 0.0f,
-     100.0f, -100.0f, -5.0f, 1.0f,  1,       100.0f, 100.0f,      1.0f, 1.0f, 0.5f, 0.0f,
-     100.0f,  100.0f, -5.0f, 1.0f,  1,       100.0f, 0.0f,      1.0f, 1.0f, 0.5f, 0.0f,
-    -100.0f,  100.0f, -5.0f, 1.0f,  1,       0.0f, 0.0f,      1.0f, 1.0f, 0.5f, 0.0f,
+    -100.0f, -100.0f, -5.0f, 1.0f,  1,  0.0f, 100.0f,      1.0f, 1.0f, 0.5f, 0.0f,
+     100.0f, -100.0f, -5.0f, 1.0f,  1,  100.0f, 100.0f,      1.0f, 1.0f, 0.5f, 0.0f,
+     100.0f,  100.0f, -5.0f, 1.0f,  1,  100.0f, 0.0f,      1.0f, 1.0f, 0.5f, 0.0f,
+    -100.0f,  100.0f, -5.0f, 1.0f,  1,  0.0f, 0.0f,      1.0f, 1.0f, 0.5f, 0.0f,
 
     -2.0f, -2.0f, 0.0f, 1.0f,  0,       0.0f, 1.0f,      1.0f, 0.0f, 0.5f, 0.5f,       //bottom left
      2.0f, -2.0f, 0.0f, 1.0f,  0,       1.0f, 1.0f,      1.0f, 0.0f, 0.5f, 0.5f,       //bottom right
@@ -126,8 +126,15 @@ void MyOpenGLWidget::initializeGL()
     m_program->enableAttributeArray(attributeColor);
     m_program->setAttributeBuffer(attributeColor, GL_FLOAT, 7 * sizeof(GLfloat), 4, stride);
 
-    m_program->setUniformValue("maxSquareWidth", qAbs(square[0]));
-    m_program->setUniformValue("maxSquareHeight", qAbs(square[1]));
+//    double maxSquareHeight = qAbs(qTan(22.5) * square[45]);
+    GLfloat maxSquareHeight = qAbs(square[45]) * (5.0f + qAbs(square[2])) / 5.0f;
+//    qDebug() << maxSquareHeight;
+    GLfloat maxSquareWidth = qAbs(square[44]) * (5.0 + qAbs(square[2])) / 5.0f;
+
+    qDebug() << "y: " << square[45] << " ymax: " << maxSquareHeight << " xmax: " << maxSquareWidth;
+
+    m_program->setUniformValue("maxSquareWidth", maxSquareWidth);
+    m_program->setUniformValue("maxSquareHeight", maxSquareHeight);
 
     m_texture1->release();
     m_vbo.release();
@@ -167,6 +174,8 @@ void MyOpenGLWidget::paintGL(){
 
     m_program->setUniformValue("u_MVP", mvp);
 
+    qDebug() << "Val: " << mvp * QVector4D(square[0], square[1], square[2], square[3]);
+
     int halfSize = (sizeof(squareIndeces) / sizeof(squareIndeces[0])) / 2;
 
     if(m_texture2 != nullptr){
@@ -181,6 +190,8 @@ void MyOpenGLWidget::paintGL(){
     m_program->setUniformValue("u_Texture", 0);
     m_program->setUniformValue("u_hasTexture", 1);
     mvp = projection * view * QMatrix4x4();
+    qDebug() << "Val2: " << mvp * QVector4D(square[44], square[45], square[46], square[47]);
+    qDebug() << "Square val[0]" << square[0];
     m_program->setUniformValue("u_MVP", mvp);
     m_texture1->bind();
     glDrawElements(GL_TRIANGLES, halfSize, GL_UNSIGNED_INT, &squareIndeces[halfSize]);
