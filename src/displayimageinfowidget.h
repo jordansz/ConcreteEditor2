@@ -12,6 +12,7 @@ class DisplayImageInfoWidget : public QWidget
     Q_OBJECT
 
 public:
+
     explicit DisplayImageInfoWidget(QWidget *parent = nullptr);
     ~DisplayImageInfoWidget();
 
