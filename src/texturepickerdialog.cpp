@@ -1,4 +1,5 @@
 #include "texturepickerdialog.h"
+#include "displayimageinfowidget.h"
 #include "ui_texturepickerdialog.h"
 #include <QDirIterator>
 #include <QDebug>
@@ -12,11 +13,13 @@ TexturePickerDialog::TexturePickerDialog(QWidget *parent) :
     ui->setupUi(this);
     this->resize(parent->size());
     mainLayout->addWidget(ui->homeBtn, 0, Qt::AlignTop | Qt::AlignRight);
-    mainLayout->addLayout(flowLayout, 0);
+    mainLayout->addLayout(flowLayout, 5);
 
     QDirIterator it(":Textures", QDirIterator::Subdirectories);
     while(it.hasNext()){
-        qDebug() << it.next();
+        QString fp(it.next());
+        flowLayout->addWidget(new DisplayImageInfoWidget(fp, this));
+//        qDebug() << it.fileName();
     }
 
     connect(ui->homeBtn, SIGNAL(clicked()), this, SLOT(on_homeBtn_clicked()));
@@ -32,6 +35,7 @@ TexturePickerDialog::~TexturePickerDialog()
 
 void TexturePickerDialog::on_homeBtn_clicked()
 {
+    qDebug() << "closing texture dialog";
     emit sendSize(this->size(), pos());
     close();
 }

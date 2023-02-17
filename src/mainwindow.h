@@ -36,6 +36,7 @@ public slots:
     void initMyOpenglWidget(QImage img);
     void enableSliders();
     void displaySelectedBackImg();
+    void setTexture(const QString fp);
 
 signals:
     void slidersChanged(QVector4D vec);

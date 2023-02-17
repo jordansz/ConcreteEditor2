@@ -81,7 +81,7 @@ void MainWindow::on_undoBtn_clicked()
 void MainWindow::on_selectPicBtn_clicked()
 {
     QString filename = QFileDialog::getOpenFileName(this, tr("Select Image"), "", tr("Images (*png *jpg)"));  //"Images (... part is allowables photo types... opens
-    qDebug() << filename;
+//    qDebug() << filename;
     // check if user picks an image
     if(!filename.isNull())
    {
@@ -115,6 +115,18 @@ void MainWindow::enableSliders()
 void MainWindow::displaySelectedBackImg()
 {
     if(selectedTextureImg != nullptr){
+        connect(this, SIGNAL(userSelectedTexture(QImage)), myOpenglWidget, SLOT(updateBackTexture(QImage)));
+        emit userSelectedTexture(*selectedTextureImg);
+    }
+}
+
+void MainWindow::setTexture(QString fp)
+{
+    qDebug() << "setting texture...."  << fp;
+    selectedTextureImg = new QImage(fp);
+    assert(!selectedTextureImg->isNull());
+
+    if(myOpenglWidget != nullptr){
         connect(this, SIGNAL(userSelectedTexture(QImage)), myOpenglWidget, SLOT(updateBackTexture(QImage)));
         emit userSelectedTexture(*selectedTextureImg);
     }
