@@ -10,7 +10,7 @@ TutorialDialog::TutorialDialog(QWidget *parent) :
     ui->setupUi(this);
     this->resize(parent->size());
     connect(ui->homeBtn, SIGNAL(clicked()), this, SLOT(on_homeBtn_clicked()));
-    connect(this, SIGNAL(sendSize(QSize, QPoint)), parent, SLOT(recieveTutorialDialogSize(QSize, QPoint)));
+    connect(this, SIGNAL(sendSize(QSize, QPoint)), parent, SLOT(recieveDialogSize(QSize, QPoint)));
 }
 
 TutorialDialog::~TutorialDialog()

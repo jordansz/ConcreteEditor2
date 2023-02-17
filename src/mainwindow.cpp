@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "tutorialdialog.h"
+#include "texturepickerdialog.h"
 
 #include <QFileDialog>
 #include "assert.h"
@@ -37,7 +38,7 @@ void MainWindow::on_tutorialBtn_clicked()
     this->show();
 }
 
-void MainWindow::recieveTutorialDialogSize(QSize newSize, QPoint newPos)
+void MainWindow::recieveDialogSize(QSize newSize, QPoint newPos)
 {
     resize(newSize);
     move(newPos);
@@ -71,8 +72,10 @@ void MainWindow::on_restartBtn_clicked()
 
 void MainWindow::on_undoBtn_clicked()
 {
-    pointSelectorWidget->deletePoint();
-    pointSelectorWidget->setFocusPolicy(Qt::StrongFocus);
+    if(selectedTextureImg){
+        pointSelectorWidget->deletePoint();
+        pointSelectorWidget->setFocusPolicy(Qt::StrongFocus);
+    }
 }
 
 void MainWindow::on_selectPicBtn_clicked()
@@ -172,18 +175,25 @@ void MainWindow::on_chooseTxtreBtn_clicked()
     //I Should make this a seperate dialog window to show off the textures.  Kind of photo gallery widget
 //    QFile file(":/Textures");
 
-    QString filename = QFileDialog::getOpenFileName(this, tr("Select Texture"), ":/Textures", tr("Images (*png *jpg)"));  //"Images (... part is allowables photo types... opens
-    if(!filename.isNull()){
-        if(selectedTextureImg != nullptr){
-            delete selectedTextureImg;
-        }
-        selectedTextureImg = new QImage(filename);
-        assert(!selectedTextureImg->isNull());
+    this->hide();
+    TexturePickerDialog texturePickerDialog(this);
+    texturePickerDialog.exec();
+    this->show();
 
-        if(myOpenglWidget != nullptr){
-            connect(this, SIGNAL(userSelectedTexture(QImage)), myOpenglWidget, SLOT(updateBackTexture(QImage)));
-            emit userSelectedTexture(*selectedTextureImg);
-        }
-    }
+//    QString filename = QFileDialog::getOpenFileName(this, tr("Select Texture"), ":/Textures", tr("Images (*png *jpg)"));  //"Images (... part is allowables photo types... opens
+//    if(!filename.isNull()){
+//        if(selectedTextureImg != nullptr){
+//            delete selectedTextureImg;
+//        }
+//        selectedTextureImg = new QImage(filename);
+//        assert(!selectedTextureImg->isNull());
+
+//        if(myOpenglWidget != nullptr){
+//            connect(this, SIGNAL(userSelectedTexture(QImage)), myOpenglWidget, SLOT(updateBackTexture(QImage)));
+//            emit userSelectedTexture(*selectedTextureImg);
+//        }
+//    }
+
+
 }
 

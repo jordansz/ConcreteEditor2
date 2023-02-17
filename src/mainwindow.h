@@ -32,7 +32,7 @@ private slots:
     void on_chooseTxtreBtn_clicked();
 
 public slots:
-    void recieveTutorialDialogSize(QSize newSize, QPoint newPos);
+    void recieveDialogSize(QSize newSize, QPoint newPos);
     void initMyOpenglWidget(QImage img);
     void enableSliders();
     void displaySelectedBackImg();
