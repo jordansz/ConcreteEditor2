@@ -8,10 +8,10 @@
 // These values are for front square w/ length of 4, back square i
 GLfloat square[] = {
 //Square1 pos                  textid   text Coord       color
-    -100.0f, -100.0f, -5.0f, 1.0f,  1,  0.0f, 100.0f,      1.0f, 1.0f, 0.5f, 0.0f,
-     100.0f, -100.0f, -5.0f, 1.0f,  1,  100.0f, 100.0f,      1.0f, 1.0f, 0.5f, 0.0f,
+    -100.0f, -100.0f, -5.0f, 1.0f,  1,  0.0f,   100.0f,    1.0f, 1.0f, 0.5f, 0.0f,
+     100.0f, -100.0f, -5.0f, 1.0f,  1,  100.0f, 100.0f,    1.0f, 1.0f, 0.5f, 0.0f,
      100.0f,  100.0f, -5.0f, 1.0f,  1,  100.0f, 0.0f,      1.0f, 1.0f, 0.5f, 0.0f,
-    -100.0f,  100.0f, -5.0f, 1.0f,  1,  0.0f, 0.0f,      1.0f, 1.0f, 0.5f, 0.0f,
+    -100.0f,  100.0f, -5.0f, 1.0f,  1,  0.0f,   0.0f,      1.0f, 1.0f, 0.5f, 0.0f,
 
     -2.0f, -2.0f, 0.0f, 1.0f,  0,       0.0f, 1.0f,      1.0f, 0.0f, 0.5f, 0.5f,       //bottom left
      2.0f, -2.0f, 0.0f, 1.0f,  0,       1.0f, 1.0f,      1.0f, 0.0f, 0.5f, 0.5f,       //bottom right
@@ -21,10 +21,10 @@ GLfloat square[] = {
 
 GLfloat squareBackup[] = {
 //Square1 pos                  textid   text Coord       color
-    -100.0f, -100.0f, -5.0f, 1.0f,  1,  0.0f, 100.0f,      1.0f, 1.0f, 0.5f, 0.0f,
-     100.0f, -100.0f, -5.0f, 1.0f,  1,  100.0f, 100.0f,      1.0f, 1.0f, 0.5f, 0.0f,
+    -100.0f, -100.0f, -5.0f, 1.0f,  1,  0.0f,   100.0f,    1.0f, 1.0f, 0.5f, 0.0f,
+     100.0f, -100.0f, -5.0f, 1.0f,  1,  100.0f, 100.0f,    1.0f, 1.0f, 0.5f, 0.0f,
      100.0f,  100.0f, -5.0f, 1.0f,  1,  100.0f, 0.0f,      1.0f, 1.0f, 0.5f, 0.0f,
-    -100.0f,  100.0f, -5.0f, 1.0f,  1,  0.0f, 0.0f,      1.0f, 1.0f, 0.5f, 0.0f,
+    -100.0f,  100.0f, -5.0f, 1.0f,  1,  0.0f,   0.0f,      1.0f, 1.0f, 0.5f, 0.0f,
 
     -2.0f, -2.0f, 0.0f, 1.0f,  0,       0.0f, 1.0f,      1.0f, 0.0f, 0.5f, 0.5f,       //bottom left
      2.0f, -2.0f, 0.0f, 1.0f,  0,       1.0f, 1.0f,      1.0f, 0.0f, 0.5f, 0.5f,       //bottom right
@@ -32,25 +32,70 @@ GLfloat squareBackup[] = {
     -2.0f,  2.0f, 0.0f, 1.0f,  0,       0.0f, 0.0f,      1.0f, 0.0f, 0.5f, 0.5f,       //top left
 };
 
-int stride = 11 * sizeof(GLfloat);
+GLfloat outerRect[] = {
+    -5.0f, -5.0f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,     //left col
+    -2.0f, -5.0f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,
+    -2.0f,  5.0f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,
+    -5.0f,  5.0f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,
+
+    2.0f, -5.0f, 0.0f, 1.0f,    0.0f, 0.0f, 0.0f, 1.0f,     //right col
+    5.0f, -5.0f, 0.0f, 1.0f,    0.0f, 0.0f, 0.0f, 1.0f,
+    5.0f,  5.0f, 0.0f, 1.0f,    0.0f, 0.0f, 0.0f, 1.0f,
+    2.0f,  5.0f, 0.0f, 1.0f,    0.0f, 0.0f, 0.0f, 1.0f,
+
+    -5.0f, -5.0f, 0.0f, 0.0f,   0.0f, 0.0f, 0.0f, 1.0f,      //bottom row
+     5.0f, -5.0f, 0.0f, 0.0f,   0.0f, 0.0f, 0.0f, 1.0f,
+     5.0f, -2.0f, 0.0f, 0.0f,   0.0f, 0.0f, 0.0f, 1.0f,
+    -5.0f, -2.0f, 0.0f, 0.0f,   0.0f, 0.0f, 0.0f, 1.0f,
+
+    -5.0f,  2.0f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,     //top row
+     5.0f,  2.0f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,
+     5.0f,  5.0f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,
+    -5.0f,  5.0f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,
+};
+
+GLfloat outerRect2[] = {
+    -5.0f, -5.0f, 0.0f, 1.0f,   0.7f, 0.1f, 0.1f, 0.5f,
+    -2.0f, -5.0f, 0.0f, 1.0f,   0.7f, 0.1f, 0.1f, 0.5f,
+    -2.0f,  5.0f, 0.0f, 1.0f,   0.7f, 0.1f, 0.1f, 0.5f,
+    -5.0f,  5.0f, 0.0f, 1.0f,   0.7f, 0.1f, 0.1f, 0.5f,
+
+    2.0f, -5.0f, 0.0f, 1.0f,    0.7f, 0.7f, 0.1f, 0.5f,
+    5.0f, -5.0f, 0.0f, 1.0f,    0.7f, 0.7f, 0.1f, 0.5f,
+    5.0f,  5.0f, 0.0f, 1.0f,    0.7f, 0.7f, 0.1f, 0.5f,
+    2.0f,  5.0f, 0.0f, 1.0f,    0.7f, 0.7f, 0.1f, 0.5f,
+
+    -5.0f, -5.0f, 0.0f, 0.0f,  0.7f, 0.7f, 0.7f, 0.9f,
+     5.0f, -5.0f, 0.0f, 0.0f,  0.7f, 0.7f, 0.7f, 0.9f,
+     5.0f, -2.0f, 0.0f, 0.0f,  0.7f, 0.7f, 0.7f, 0.9f,
+    -5.0f, -2.0f, 0.0f, 0.0f,  0.7f, 0.7f, 0.7f, 0.9f,
+
+    -5.0f,  2.0f, 0.0f, 1.0f,   0.7f, 0.7f, 0.7f, 0.9f,
+     5.0f,  2.0f, 0.0f, 1.0f,   0.7f, 0.7f, 0.7f, 0.9f,
+     5.0f,  5.0f, 0.0f, 1.0f,   0.7f, 0.7f, 0.7f, 0.9f,
+    -5.0f,  5.0f, 0.0f, 1.0f,   0.7f, 0.7f, 0.7f, 0.9f,
+};
 
 GLuint squareIndeces[] = {
-    0, 1, 2, 0, 3, 2,
-    4, 5, 6, 4, 7, 6,
+    0,  1,  2,      0,  3,  2,
+    4,  5,  6,      4,  7,  6,
+    8,  9,  10,     8,  11, 10,
+    12, 13, 14,     12, 15, 14,
 //        0, 1, 1, 2, 2, 3, 3, 0    //square wire frame
 };
 
-//GLfloat squareBackup[sizeof(square) / sizeof(square[0])];
+int horizShift;
+int vertShift;
 
-//void makeSquareBackupCopy(){
-//    for(int i = 0; i < sizeof(square) / sizeof(square[0]); i++){
-//        squareBackup[i] = square[i];
-//    }
-//}
+int indeceSize = sizeof(squareIndeces) / sizeof(squareIndeces[0]);
+int stride = 11 * sizeof(GLfloat);
+int stride2 = 8 * sizeof(GLfloat);
+
 
 MyOpenGLWidget::MyOpenGLWidget(QImage img, QWidget *parent)
     : QOpenGLWidget(parent)
     , m_program(new QOpenGLShaderProgram(nullptr))
+    , m_program2(new QOpenGLShaderProgram(nullptr))
     , m_texture1(nullptr)
     , m_texture2(nullptr)
     , scaleSize(100.0f)
@@ -76,12 +121,16 @@ MyOpenGLWidget::~MyOpenGLWidget()
 {
     qDebug() << "openglWidget Deconstructor called";
     makeCurrent();
+    delete m_program2;
     delete m_program;
     if(m_texture1 != nullptr)
         delete m_texture1;
     if(m_texture2 != nullptr)
         delete m_texture2;
 
+    m_vbo3.destroy();
+    m_vbo2.destroy();
+    m_vao.destroy();
     m_vbo.destroy();
     m_vao.destroy();
     doneCurrent();
@@ -92,7 +141,7 @@ void MyOpenGLWidget::initializeGL()
     qDebug() << "Initializing opengl for myOpenglWidget";
     emit enableSliders();
     initializeOpenGLFunctions();
-    glClearColor(0.9f, 0.8f, 0.8f, 0.0f);
+    glClearColor(0.6f, 0.8f, 0.8f, 0.0f);
     glDisable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -104,11 +153,13 @@ void MyOpenGLWidget::initializeGL()
     m_vbo.create();
     m_vbo.bind();
     m_vbo.setUsagePattern(QOpenGLBuffer::DynamicDraw);
+//    m_vbo.allocate((void*)square, sizeof(square));
+//    m_texture1->create();
 
     updateTexture(frontImg, m_texture1);            // must before allocating vbo data because of the function changing the global square variable
     m_vbo.allocate((void*)square, sizeof(square));
 
-    initShader(":/Shaders/default.vert", ":/Shaders/default.frag");
+    initShader(":/Shaders/default.vert", ":/Shaders/default.frag", m_program);
 
     attributePos = m_program->attributeLocation("position");
     m_program->enableAttributeArray(attributePos);
@@ -126,29 +177,43 @@ void MyOpenGLWidget::initializeGL()
     m_program->enableAttributeArray(attributeColor);
     m_program->setAttributeBuffer(attributeColor, GL_FLOAT, 7 * sizeof(GLfloat), 4, stride);
 
-//    double maxSquareHeight = qAbs(qTan(22.5) * square[45]);
-    GLfloat maxSquareHeight = qAbs(square[45]) * (5.0f + qAbs(square[2])) / 5.0f;
-//    qDebug() << maxSquareHeight;
-    GLfloat maxSquareWidth = qAbs(square[44]) * (5.0 + qAbs(square[2])) / 5.0f;
-
-    qDebug() << "y: " << square[45] << " ymax: " << maxSquareHeight << " xmax: " << maxSquareWidth;
-
-    m_program->setUniformValue("maxSquareWidth", maxSquareWidth);
-    m_program->setUniformValue("maxSquareHeight", maxSquareHeight);
-
     m_texture1->release();
     m_vbo.release();
     m_program->release();
     m_vao.release();
     initialized = true;
 
+
+    m_vao2.create();
+    m_vao2.bind();
+    m_vbo2.create();
+    m_vbo2.bind();
+    m_vbo2.setUsagePattern(QOpenGLBuffer::DynamicDraw);
+    m_vbo2.allocate((void*)outerRect, sizeof(outerRect));
+
+
+
+
+    initShader(":/Shaders/default.vert", ":/Shaders/default.frag", m_program2);
+    m_program2->enableAttributeArray(attributePos);
+    m_program2->enableAttributeArray(attributeColor);
+
+    m_program2->setAttributeBuffer(attributePos, GL_FLOAT, 0, 4, stride2);
+    m_program2->setAttributeBuffer(attributeColor, GL_FLOAT, 4 * sizeof(GLfloat), 4, stride2);
+
+    m_program2->release();
+    m_vbo2.release();
+    m_vao2.release();
+
     emit readyForBackTexture();
 }
 
 void MyOpenGLWidget::updateTexture(QImage img, QOpenGLTexture *&texture)
 {
-    qDebug() << "Updating Texture and Square";
+    horizShift = 0;
+    vertShift = 0;
     if(texture == nullptr && initialized == false){
+        qDebug() << "Updating Texture and Square";
         transformSquare(img);
     }
     initTexture(img, texture);
@@ -159,50 +224,145 @@ void MyOpenGLWidget::paintGL(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     m_program->bind();
     m_vao.bind();
-    m_texture1->bind();
+    m_vbo.bind();
+//    m_texture1->bind();
 
     QMatrix4x4 model;
-//    model.scale(scaleSize);
+    QMatrix4x4 view;
+    QMatrix4x4 projection;
+
     model.rotate(rotationVec.x(), QVector3D(1, 0, 0));
     model.rotate(rotationVec.y(), QVector3D(0, 1, 0));
-
-    QMatrix4x4 view;
     view.lookAt(QVector3D(0.0f, 0.0f, 5.0f), QVector3D(0.0f, 0.0f, 0.0f), QVector3D(0.0f, 1.0f, 0.0f));
-    QMatrix4x4 projection;
     projection.perspective(45.0f, width() / float(height()), 0.01f, 200.0f);
     QMatrix4x4 mvp = projection * view * model;
 
-    m_program->setUniformValue("u_MVP", mvp);
-
-    qDebug() << "Val: " << mvp * QVector4D(square[0], square[1], square[2], square[3]);
-
-    int halfSize = (sizeof(squareIndeces) / sizeof(squareIndeces[0])) / 2;
-
     if(m_texture2 != nullptr){
         m_texture2->bind();
-        m_program->setUniformValue("u_Texture", 0);
         m_program->setUniformValue("u_hasTexture", 1);
-    }
-    else
-        m_program->setUniformValue("u_hasTexture", 0);
-    glDrawElements(GL_TRIANGLES, halfSize, GL_UNSIGNED_INT, &squareIndeces[0]);
-
-    m_program->setUniformValue("u_Texture", 0);
-    m_program->setUniformValue("u_hasTexture", 1);
-    mvp = projection * view * QMatrix4x4();
-    qDebug() << "Val2: " << mvp * QVector4D(square[44], square[45], square[46], square[47]);
-    qDebug() << "Square val[0]" << square[0];
-    m_program->setUniformValue("u_MVP", mvp);
-    m_texture1->bind();
-    glDrawElements(GL_TRIANGLES, halfSize, GL_UNSIGNED_INT, &squareIndeces[halfSize]);
-
-
-    m_texture1->release();
-    if(m_texture2 != nullptr)
+        m_program->setUniformValue("u_Texture", 0);
+        m_program->setUniformValue("u_MVP", mvp);
+        glDrawElements(GL_TRIANGLES, indeceSize / 4, GL_UNSIGNED_INT, &squareIndeces[0]);
         m_texture2->release();
+    }
+
+    mvp = projection * view * QMatrix4x4();
+    m_texture1->bind();
+    m_program->setUniformValue("u_hasTexture", 1);
+    m_program->setUniformValue("u_Texture", 0);
+    m_program->setUniformValue("u_MVP", mvp);
+    glDrawElements(GL_TRIANGLES, indeceSize / 4, GL_UNSIGNED_INT, &squareIndeces[indeceSize / 4]);
+
+    m_vbo.release();
     m_vao.release();
+    m_texture1->release();
     m_program->release();
+
+    m_program2->bind();
+    m_vao2.bind();
+    m_vbo2.bind();
+
+    m_program2->setUniformValue("u_MVP", mvp);
+    m_program2->setUniformValue("u_hasTexture", 0);
+    m_program->setUniformValue("u_Texture", 0);
+    glDrawElements(GL_TRIANGLES, indeceSize, GL_UNSIGNED_INT, &squareIndeces[0]);
+
+    m_vbo2.release();
+    m_vao2.release();
+    m_program2->release();
+
+
+
+
+//    m_program->setUniformValue("u_Texture", 0);
+//    m_program->setUniformValue("u_hasTexture", 1);
+//    mvp = projection * view * QMatrix4x4();
+//    qDebug() << "Val2: " << mvp * QVector4D(square[44], square[45], square[46], square[47]);
+//    qDebug() << "Square val[0]" << square[0];
+//    m_program->setUniformValue("u_MVP", mvp);
+//    m_texture1->bind();
+//    glDrawElements(GL_TRIANGLES, halfSize, GL_UNSIGNED_INT, &squareIndeces[halfSize]);
+
+
+//    m_texture1->release();
+//    if(m_texture2 != nullptr)
+//        m_texture2->release();
+//    m_vao.release();
+//    m_program->release();
 }
+
+//void MyOpenGLWidget::paintGL(){
+//    qDebug() << m_texture1->isBound();
+
+//    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//    m_program->bind();
+//    m_vao.bind();
+//    m_vbo.bind();
+//    m_texture1->bind();
+
+//    QMatrix4x4 model;
+////    model.scale(scaleSize);
+//    model.rotate(rotationVec.x(), QVector3D(1, 0, 0));
+//    model.rotate(rotationVec.y(), QVector3D(0, 1, 0));
+
+//    QMatrix4x4 view;
+//    view.lookAt(QVector3D(0.0f, 0.0f, 5.0f), QVector3D(0.0f, 0.0f, 0.0f), QVector3D(0.0f, 1.0f, 0.0f));
+//    QMatrix4x4 projection;
+//    projection.perspective(45.0f, width() / float(height()), 0.01f, 200.0f);
+//    QMatrix4x4 mvp = projection * view * model;
+
+//    m_program->setUniformValue("u_MVP", mvp);
+
+////    qDebug() << "Val: " << mvp * QVector4D(square[0], square[1], square[2], square[3]);
+
+//    int halfSize = (sizeof(squareIndeces) / sizeof(squareIndeces[0])) / 2;
+
+//    if(m_texture2 != nullptr){
+//        m_texture2->bind();
+//        m_program->setUniformValue("u_Texture", 0);
+//        m_program->setUniformValue("u_hasTexture", 1);
+//    }
+//    else
+//    m_program->setUniformValue("u_hasTexture", 0);
+//    glDrawElements(GL_TRIANGLES, halfSize, GL_FLOAT, &squareIndeces[0]);
+
+////    m_vao.release();
+////    m_texture1->release();
+////    m_texture2->release();
+
+////    m_vao2.bind();
+////    m_vbo2.bind();
+////    m_program2->bind();
+
+
+////    mvp = projection * view * QMatrix4x4();
+////    m_program2->setUniformValue("u_MVP", mvp);
+////    glDrawElements(GL_TRIANGLES, 0, GL_FLOAT, &outerRectSide);
+////    m_vbo2.release();
+
+////    m_vbo3.bind();
+////    glDrawElements(GL_TRIANGLES, 0, GL_FLOAT, &outerRectTop);
+
+////    m_vbo3.release();
+////    m_program2->release();
+////    m_vao2.release();
+
+////    m_program->setUniformValue("u_Texture", 0);
+////    m_program->setUniformValue("u_hasTexture", 1);
+////    mvp = projection * view * QMatrix4x4();
+////    qDebug() << "Val2: " << mvp * QVector4D(square[44], square[45], square[46], square[47]);
+//////    qDebug() << "Square val[0]" << square[0];
+////    m_program->setUniformValue("u_MVP", mvp);
+////    m_texture1->bind();
+////    glDrawElements(GL_TRIANGLES, halfSize, GL_FLOAT, &squareIndeces[halfSize]);
+
+
+//    m_texture1->release();
+//    if(m_texture2 != nullptr)
+//        m_texture2->release();
+//    m_vao.release();
+//    m_program->release();
+//}
 
 
 void MyOpenGLWidget::resizeGL(int w, int h){
@@ -220,26 +380,26 @@ void MyOpenGLWidget::initTexture(QImage img1, QOpenGLTexture *&texture){
     texture->setWrapMode(QOpenGLTexture::Repeat);
 }
 
-void MyOpenGLWidget::initShader(const QString &fp1, const QString &fp2){
-    if(!m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, fp1)){
+void MyOpenGLWidget::initShader(const QString &fp1, const QString &fp2, QOpenGLShaderProgram *prog){
+    if(!prog->addShaderFromSourceFile(QOpenGLShader::Vertex, fp1)){
         qDebug() << "Problem compiling vertex shader\n" << __FILE__;
         close();
     }
 
     // Compile fragment shader
-    if (!m_program->addShaderFromSourceFile(QOpenGLShader::Fragment, fp2)){
+    if (!prog->addShaderFromSourceFile(QOpenGLShader::Fragment, fp2)){
         qDebug() << "Problem compiling Frag shader\n" << __FILE__;
         close();
     }
 
     // Link shader pipeline
-    if (!m_program->link()){
+    if (!prog->link()){
         qDebug() << "Problem linking shader\n" << __FILE__;
         close();
     }
 
     // Bind shader pipeline for use
-    if (!m_program->bind()){
+    if (!prog->bind()){
         qDebug() << "Problem binding shader\n" << __FILE__;
         close();
     }
@@ -286,6 +446,10 @@ void MyOpenGLWidget::restart()
     for(int i = 0; i < sizeof(square) / sizeof(square[0]); i++){
         square[i] = squareBackup[i];
     }
+    for(int i = 0; i < sizeof(outerRect) / outerRect[0]; i++){
+        outerRect[i] = outerRect[i];
+        outerRect[i] = outerRect2[i];
+    }
     m_vbo.bind();
     m_vbo.write(0, (void*)square, sizeof(square) / 2);
     m_program->enableAttributeArray(attributeTextCoord);
@@ -309,15 +473,20 @@ void MyOpenGLWidget::transformSquare(QImage img){
 //            square[index - 44] *= ratio;
         }
     }
+//    int offset = (imgWRatio <= imgHRatio) ? 0 : 9;
+//    size = (sizeof(outerRect) / sizeof(outerRect[0]));
+//    for(; offset < size; offset += 8){
+//        if(qAbs(outerRect[offset]) == 2.0f){
+//            outerRect[offset] = -(abs(outerRect[offset]) * ratio);
+////            square[index - 44] = -(abs(square[index - 44]) * ratio);
+//        }
+//        else{
+//            outerRect[index] *= ratio;
+//        }
+//    }
+
+//    horizShift = qAbs((outerRectSide[0] + outerRectSide[3]) * 2);
+//    vertShift = qAbs((outerRectTop[7] + outerRectTop[1]) * 2 );
+//    outerRectSide[3] = square[55];
+//    outerRectSide[6] = square[66];
 }
-
-// previous transform for testing
-//    square[0] -= 0.1f;
-
-//    m_vbo.bind();
-//    m_vbo.write(0, (void*)square, sizeof(square));
-
-//    m_program->enableAttributeArray(attributePos);
-//    m_program->setAttributeBuffer(attributePos, GL_FLOAT, 0, 4, 10*sizeof(GLfloat) );
-//    m_vbo.release();
-//    update();

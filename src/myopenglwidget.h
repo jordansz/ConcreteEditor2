@@ -31,7 +31,7 @@ protected:
 private:
     void transformSquare(QImage img);
     void initTexture(QImage img, QOpenGLTexture *&texture);
-    void initShader(const QString &fp1, const QString &fp2);
+    void initShader(const QString &fp1, const QString &fp2, QOpenGLShaderProgram *prog);
     void updateSize(double val);
 
 public slots:
@@ -45,11 +45,17 @@ signals:
 
 private:
     QOpenGLVertexArrayObject m_vao;
+    QOpenGLVertexArrayObject m_vao2;
     QOpenGLBuffer m_vbo;
+    QOpenGLBuffer m_vbo2;
+    QOpenGLBuffer m_vbo3;
 
     QOpenGLShaderProgram *m_program;
+    QOpenGLShaderProgram *m_program2;
     int attributePos;
+    int attributePos2;
     int attributeColor;
+    int attributeColor2;
     int attributeTextCoord;
     int attributeTextIndex;
     QOpenGLTexture *m_texture1;
