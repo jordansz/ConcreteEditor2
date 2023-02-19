@@ -14,7 +14,7 @@
    <string>Dialog</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <item alignment="Qt::AlignRight|Qt::AlignTop">
+   <item alignment="Qt::AlignRight">
     <widget class="QPushButton" name="homeBtn">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
@@ -27,10 +27,14 @@
      </property>
     </widget>
    </item>
-   <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>Coming Soon</string>
+   <item>
+    <widget class="QPlainTextEdit" name="plainTextEdit">
+     <property name="plainText">
+      <string>Select an image you wish to Edit out your concrete using the &quot;Select&quot; button.  Your image will be displayed, begin clicking out areas of your concrete to edit out.  You can use the &quot;back space&quot; key or &quot;undo&quot; button to remove the previous point selected
+
+Once you have a closed area selected, you will move to the next phase of viewing different textures.  This can be done by selecting a texture with &quot;Choose texture&quot; button.  The sliders allow you to manipulate the texture applied to look more natural.
+
+At any point you can hit &quot;Restart&quot; and will go back to editing your selected photo if one is selected.</string>
      </property>
     </widget>
    </item>

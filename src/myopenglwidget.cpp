@@ -33,47 +33,47 @@ GLfloat squareBackup[] = {
 };
 
 GLfloat outerRect[] = {
-    -5.0f, -5.0f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,     //left col
-    -2.0f, -5.0f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,
-    -2.0f,  5.0f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,
-    -5.0f,  5.0f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,
+    -2.5f, -2.5f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,     //left col
+    -2.0f, -2.5f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,
+    -2.0f,  2.5f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,
+    -2.5f,  2.5f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,
 
-    2.0f, -5.0f, 0.0f, 1.0f,    0.0f, 0.0f, 0.0f, 1.0f,     //right col
-    5.0f, -5.0f, 0.0f, 1.0f,    0.0f, 0.0f, 0.0f, 1.0f,
-    5.0f,  5.0f, 0.0f, 1.0f,    0.0f, 0.0f, 0.0f, 1.0f,
-    2.0f,  5.0f, 0.0f, 1.0f,    0.0f, 0.0f, 0.0f, 1.0f,
+    2.0f, -2.5f, 0.0f, 1.0f,    0.0f, 0.0f, 0.0f, 1.0f,     //right col
+    2.5f, -2.5f, 0.0f, 1.0f,    0.0f, 0.0f, 0.0f, 1.0f,
+    2.5f,  2.5f, 0.0f, 1.0f,    0.0f, 0.0f, 0.0f, 1.0f,
+    2.0f,  2.5f, 0.0f, 1.0f,    0.0f, 0.0f, 0.0f, 1.0f,
 
-    -5.0f, -5.0f, 0.0f, 0.0f,   0.0f, 0.0f, 0.0f, 1.0f,      //bottom row
-     5.0f, -5.0f, 0.0f, 0.0f,   0.0f, 0.0f, 0.0f, 1.0f,
-     5.0f, -2.0f, 0.0f, 0.0f,   0.0f, 0.0f, 0.0f, 1.0f,
-    -5.0f, -2.0f, 0.0f, 0.0f,   0.0f, 0.0f, 0.0f, 1.0f,
+    -2.5f, -2.5f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,      //bottom row
+     2.5f, -2.5f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,
+     2.5f, -2.0f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,
+    -2.5f, -2.0f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,
 
-    -5.0f,  2.0f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,     //top row
-     5.0f,  2.0f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,
-     5.0f,  5.0f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,
-    -5.0f,  5.0f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,
+    -2.5f,  2.0f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,     //top row
+     2.5f,  2.0f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,
+     2.5f,  2.5f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,
+    -2.5f,  2.5f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,
 };
 
 GLfloat outerRect2[] = {
-    -5.0f, -5.0f, 0.0f, 1.0f,   0.7f, 0.1f, 0.1f, 0.5f,
-    -2.0f, -5.0f, 0.0f, 1.0f,   0.7f, 0.1f, 0.1f, 0.5f,
-    -2.0f,  5.0f, 0.0f, 1.0f,   0.7f, 0.1f, 0.1f, 0.5f,
-    -5.0f,  5.0f, 0.0f, 1.0f,   0.7f, 0.1f, 0.1f, 0.5f,
+    -2.5f, -2.5f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,     //left col
+    -2.0f, -2.5f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,
+    -2.0f,  2.5f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,
+    -2.5f,  2.5f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,
 
-    2.0f, -5.0f, 0.0f, 1.0f,    0.7f, 0.7f, 0.1f, 0.5f,
-    5.0f, -5.0f, 0.0f, 1.0f,    0.7f, 0.7f, 0.1f, 0.5f,
-    5.0f,  5.0f, 0.0f, 1.0f,    0.7f, 0.7f, 0.1f, 0.5f,
-    2.0f,  5.0f, 0.0f, 1.0f,    0.7f, 0.7f, 0.1f, 0.5f,
+    2.0f, -2.5f, 0.0f, 1.0f,    1.0f, 1.0f, 1.0f, 1.0f,     //right col
+    2.5f, -2.5f, 0.0f, 1.0f,    0.0f, 0.0f, 0.0f, 1.0f,
+    2.5f,  2.5f, 0.0f, 1.0f,    0.0f, 0.0f, 0.0f, 1.0f,
+    2.0f,  2.5f, 0.0f, 1.0f,    1.0f, 1.0f, 1.0f, 1.0f,
 
-    -5.0f, -5.0f, 0.0f, 0.0f,  0.7f, 0.7f, 0.7f, 0.9f,
-     5.0f, -5.0f, 0.0f, 0.0f,  0.7f, 0.7f, 0.7f, 0.9f,
-     5.0f, -2.0f, 0.0f, 0.0f,  0.7f, 0.7f, 0.7f, 0.9f,
-    -5.0f, -2.0f, 0.0f, 0.0f,  0.7f, 0.7f, 0.7f, 0.9f,
+    -2.5f, -2.5f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,      //bottom row
+     2.5f, -2.5f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,
+     2.5f, -2.0f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,
+    -2.5f, -2.0f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,
 
-    -5.0f,  2.0f, 0.0f, 1.0f,   0.7f, 0.7f, 0.7f, 0.9f,
-     5.0f,  2.0f, 0.0f, 1.0f,   0.7f, 0.7f, 0.7f, 0.9f,
-     5.0f,  5.0f, 0.0f, 1.0f,   0.7f, 0.7f, 0.7f, 0.9f,
-    -5.0f,  5.0f, 0.0f, 1.0f,   0.7f, 0.7f, 0.7f, 0.9f,
+    -2.5f,  2.0f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,     //top row
+     2.5f,  2.0f, 0.0f, 1.0f,   0.0f, 0.0f, 0.0f, 1.0f,
+     2.5f,  2.5f, 0.0f, 1.0f,   1.0f, 1.0f, 1.0f, 1.0f,
+    -2.5f,  2.5f, 0.0f, 1.0f,   1.0f, 1.0f, 1.0f, 1.0f,
 };
 
 GLuint squareIndeces[] = {
@@ -141,7 +141,7 @@ void MyOpenGLWidget::initializeGL()
     qDebug() << "Initializing opengl for myOpenglWidget";
     emit enableSliders();
     initializeOpenGLFunctions();
-    glClearColor(0.6f, 0.8f, 0.8f, 0.0f);
+    glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
     glDisable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -237,6 +237,7 @@ void MyOpenGLWidget::paintGL(){
     projection.perspective(45.0f, width() / float(height()), 0.01f, 200.0f);
     QMatrix4x4 mvp = projection * view * model;
 
+//  check if there is a back texture and draw it
     if(m_texture2 != nullptr){
         m_texture2->bind();
         m_program->setUniformValue("u_hasTexture", 1);
@@ -246,6 +247,7 @@ void MyOpenGLWidget::paintGL(){
         m_texture2->release();
     }
 
+//  Draw main texture
     mvp = projection * view * QMatrix4x4();
     m_texture1->bind();
     m_program->setUniformValue("u_hasTexture", 1);
@@ -262,6 +264,7 @@ void MyOpenGLWidget::paintGL(){
     m_vao2.bind();
     m_vbo2.bind();
 
+//  draw sides
     m_program2->setUniformValue("u_MVP", mvp);
     m_program2->setUniformValue("u_hasTexture", 0);
     m_program->setUniformValue("u_Texture", 0);
@@ -270,99 +273,7 @@ void MyOpenGLWidget::paintGL(){
     m_vbo2.release();
     m_vao2.release();
     m_program2->release();
-
-
-
-
-//    m_program->setUniformValue("u_Texture", 0);
-//    m_program->setUniformValue("u_hasTexture", 1);
-//    mvp = projection * view * QMatrix4x4();
-//    qDebug() << "Val2: " << mvp * QVector4D(square[44], square[45], square[46], square[47]);
-//    qDebug() << "Square val[0]" << square[0];
-//    m_program->setUniformValue("u_MVP", mvp);
-//    m_texture1->bind();
-//    glDrawElements(GL_TRIANGLES, halfSize, GL_UNSIGNED_INT, &squareIndeces[halfSize]);
-
-
-//    m_texture1->release();
-//    if(m_texture2 != nullptr)
-//        m_texture2->release();
-//    m_vao.release();
-//    m_program->release();
 }
-
-//void MyOpenGLWidget::paintGL(){
-//    qDebug() << m_texture1->isBound();
-
-//    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-//    m_program->bind();
-//    m_vao.bind();
-//    m_vbo.bind();
-//    m_texture1->bind();
-
-//    QMatrix4x4 model;
-////    model.scale(scaleSize);
-//    model.rotate(rotationVec.x(), QVector3D(1, 0, 0));
-//    model.rotate(rotationVec.y(), QVector3D(0, 1, 0));
-
-//    QMatrix4x4 view;
-//    view.lookAt(QVector3D(0.0f, 0.0f, 5.0f), QVector3D(0.0f, 0.0f, 0.0f), QVector3D(0.0f, 1.0f, 0.0f));
-//    QMatrix4x4 projection;
-//    projection.perspective(45.0f, width() / float(height()), 0.01f, 200.0f);
-//    QMatrix4x4 mvp = projection * view * model;
-
-//    m_program->setUniformValue("u_MVP", mvp);
-
-////    qDebug() << "Val: " << mvp * QVector4D(square[0], square[1], square[2], square[3]);
-
-//    int halfSize = (sizeof(squareIndeces) / sizeof(squareIndeces[0])) / 2;
-
-//    if(m_texture2 != nullptr){
-//        m_texture2->bind();
-//        m_program->setUniformValue("u_Texture", 0);
-//        m_program->setUniformValue("u_hasTexture", 1);
-//    }
-//    else
-//    m_program->setUniformValue("u_hasTexture", 0);
-//    glDrawElements(GL_TRIANGLES, halfSize, GL_FLOAT, &squareIndeces[0]);
-
-////    m_vao.release();
-////    m_texture1->release();
-////    m_texture2->release();
-
-////    m_vao2.bind();
-////    m_vbo2.bind();
-////    m_program2->bind();
-
-
-////    mvp = projection * view * QMatrix4x4();
-////    m_program2->setUniformValue("u_MVP", mvp);
-////    glDrawElements(GL_TRIANGLES, 0, GL_FLOAT, &outerRectSide);
-////    m_vbo2.release();
-
-////    m_vbo3.bind();
-////    glDrawElements(GL_TRIANGLES, 0, GL_FLOAT, &outerRectTop);
-
-////    m_vbo3.release();
-////    m_program2->release();
-////    m_vao2.release();
-
-////    m_program->setUniformValue("u_Texture", 0);
-////    m_program->setUniformValue("u_hasTexture", 1);
-////    mvp = projection * view * QMatrix4x4();
-////    qDebug() << "Val2: " << mvp * QVector4D(square[44], square[45], square[46], square[47]);
-//////    qDebug() << "Square val[0]" << square[0];
-////    m_program->setUniformValue("u_MVP", mvp);
-////    m_texture1->bind();
-////    glDrawElements(GL_TRIANGLES, halfSize, GL_FLOAT, &squareIndeces[halfSize]);
-
-
-//    m_texture1->release();
-//    if(m_texture2 != nullptr)
-//        m_texture2->release();
-//    m_vao.release();
-//    m_program->release();
-//}
 
 
 void MyOpenGLWidget::resizeGL(int w, int h){
@@ -409,7 +320,6 @@ void MyOpenGLWidget::updateSize(double val)
 {
     if(val < 0.02)
         val = 0.04;
-    qDebug() << val;
     square[6]  = val;
     square[16] = val;
     square[17] = val;
@@ -473,20 +383,19 @@ void MyOpenGLWidget::transformSquare(QImage img){
 //            square[index - 44] *= ratio;
         }
     }
-//    int offset = (imgWRatio <= imgHRatio) ? 0 : 9;
-//    size = (sizeof(outerRect) / sizeof(outerRect[0]));
-//    for(; offset < size; offset += 8){
-//        if(qAbs(outerRect[offset]) == 2.0f){
-//            outerRect[offset] = -(abs(outerRect[offset]) * ratio);
-////            square[index - 44] = -(abs(square[index - 44]) * ratio);
-//        }
-//        else{
-//            outerRect[index] *= ratio;
-//        }
-//    }
-
-//    horizShift = qAbs((outerRectSide[0] + outerRectSide[3]) * 2);
-//    vertShift = qAbs((outerRectTop[7] + outerRectTop[1]) * 2 );
-//    outerRectSide[3] = square[55];
-//    outerRectSide[6] = square[66];
+    double sVal = qAbs(square[index - increment]);
+//  need to change outer square min vals, if statment below is
+//  true must change y vals equal to +- sVal and vice versa for less then 1
+    if(imgWRatio >= 1){
+        outerRect[81]  = -sVal;
+        outerRect[89]  = -sVal;
+        outerRect[97] = sVal;
+        outerRect[105] = sVal;
+    }
+    else{
+        outerRect[8]  = -sVal;
+        outerRect[16] = -sVal;
+        outerRect[32] = sVal;
+        outerRect[56] = sVal;
+    }
 }

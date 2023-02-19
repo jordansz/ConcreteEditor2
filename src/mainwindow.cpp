@@ -9,7 +9,6 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-//    , selectedTextureImg(new QImage(""))
     , selectedTextureImg(nullptr)
     , ui(new Ui::MainWindow)
     , pointSelectorWidget(nullptr)
@@ -72,7 +71,7 @@ void MainWindow::on_restartBtn_clicked()
 
 void MainWindow::on_undoBtn_clicked()
 {
-    if(selectedTextureImg){
+    if(pointSelectorWidget != nullptr){
         pointSelectorWidget->deletePoint();
         pointSelectorWidget->setFocusPolicy(Qt::StrongFocus);
     }
@@ -191,21 +190,5 @@ void MainWindow::on_chooseTxtreBtn_clicked()
     TexturePickerDialog texturePickerDialog(this);
     texturePickerDialog.exec();
     this->show();
-
-//    QString filename = QFileDialog::getOpenFileName(this, tr("Select Texture"), ":/Textures", tr("Images (*png *jpg)"));  //"Images (... part is allowables photo types... opens
-//    if(!filename.isNull()){
-//        if(selectedTextureImg != nullptr){
-//            delete selectedTextureImg;
-//        }
-//        selectedTextureImg = new QImage(filename);
-//        assert(!selectedTextureImg->isNull());
-
-//        if(myOpenglWidget != nullptr){
-//            connect(this, SIGNAL(userSelectedTexture(QImage)), myOpenglWidget, SLOT(updateBackTexture(QImage)));
-//            emit userSelectedTexture(*selectedTextureImg);
-//        }
-//    }
-
-
 }
 

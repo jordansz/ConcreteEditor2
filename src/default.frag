@@ -2,7 +2,7 @@
 out vec4 color;
 in vec2 v_textCoord;
 in float v_tIndex;
-in vec4 v_color;
+smooth in vec4 v_color;
 
 uniform sampler2D u_Texture;
 uniform int u_hasTexture;

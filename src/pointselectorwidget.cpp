@@ -86,7 +86,7 @@ void PointSelectorWidget::paintEvent(QPaintEvent *event)
     // If image is not ready to be edited (not a close region) draw all lines and points
     if(!editImage){
         QPainter painter(this);
-        painter.setPen(Qt::gray);
+        painter.setPen(Qt::darkRed);
         painter.drawImage(xOffset, yOffset, image);
 
         for(auto point : points){
