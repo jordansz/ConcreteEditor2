@@ -76,6 +76,10 @@ GLfloat outerRect2[] = {
     -2.5f,  2.5f, 0.0f, 1.0f,   1.0f, 1.0f, 1.0f, 1.0f,
 };
 
+//GLfloat test[] = {
+//    2.5f, 2.5f, 0.5f,
+//}
+
 GLuint squareIndeces[] = {
     0,  1,  2,      0,  3,  2,
     4,  5,  6,      4,  7,  6,
